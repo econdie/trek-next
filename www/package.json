@@ -1,0 +1,53 @@
+{
+  "name": "treknext",
+  "version": "1.0.0",
+  "description": "What will be your next trek?",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/econdie/treknext.git"
+  },
+  "keywords": [
+    "trek",
+    "journey",
+    "travel",
+    "nextjs"
+  ],
+  "author": "Erik Condie <erikcondie@gmail.com> (https://www.erikcondie.com)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/econdie/treknext/issues"
+  },
+  "homepage": "https://github.com/econdie/treknext#readme",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "express": "^4.16.4",
+    "next": "^7.0.3",
+    "next-seo": "^1.10.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "husky": "^1.3.1",
+    "prettier": "1.16.4",
+    "pretty-quick": "^1.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
