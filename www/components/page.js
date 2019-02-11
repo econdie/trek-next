@@ -6,9 +6,11 @@ class Page extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navigation />
-        <div className="container main-container mt-2 mb-5">
-          {this.props.children}
+        <div className="footerless">
+          <Navigation />
+          <div className="container content-container">
+            {this.props.children}
+          </div>
         </div>
         <Footer />
       </React.Fragment>

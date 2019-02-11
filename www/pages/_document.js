@@ -17,6 +17,7 @@ export default class TrekNextDocument extends Document {
           />
           <meta charSet="utf-8" />
           <link rel="stylesheet" href="/static/css/styles.css" />
+          <link rel="stylesheet" href="/static/css/nprogress.css" />
           <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
           <link
             rel="apple-touch-icon"

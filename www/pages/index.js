@@ -8,5 +8,21 @@ export default () => (
       Welcome to next.js!
       <Button color="danger">Test</Button>
     </div>
+    <div>
+      Welcome to next.js!
+      <Button color="danger">Test</Button>
+    </div>
+    <div>
+      Welcome to next.js!
+      <Button color="danger">Test</Button>
+    </div>
+    <div>
+      Welcome to next.js!
+      <Button color="danger">Test</Button>
+    </div>
+    <div>
+      Welcome to next.js!
+      <Button color="danger">Test</Button>
+    </div>
   </Page>
 );
