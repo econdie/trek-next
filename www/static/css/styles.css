@@ -51,20 +51,11 @@ footer {
 }
 #navbar-main a {
   color: #cec9c9;
-
   text-decoration: none;
 }
 #navbar-main a:hover {
   color: #fff;
 }
-/*a {
-  color: #2195ff;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-a:hover {
-  color: #68b5fb;
-}*/
 #navbar-main li.nav-item {
   margin-right: 2em;
 }
