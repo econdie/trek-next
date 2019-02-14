@@ -46,7 +46,7 @@ class Navigation extends Component {
           <a
             className="navbar-brand pull-left"
             title="NextTrek Home"
-            className="f3"
+            className="f3 fw5"
           >
             {config.brandName} <FaGrav size={32} className="mx-2" />
           </a>
@@ -56,13 +56,13 @@ class Navigation extends Component {
           <Nav className="ml-auto" navbar>
             <NavItem>
               <Link href="/login">
-                <a className="f3">Login</a>
+                <a className="f3 fw6">Login</a>
               </Link>
             </NavItem>
 
             <NavItem>
               <Link href="/signup">
-                <a className="f3">Sign Up</a>
+                <a className="f3 fw6">Sign Up</a>
               </Link>
             </NavItem>
           </Nav>

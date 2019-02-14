@@ -16,6 +16,10 @@ export default class TrekNextDocument extends Document {
             content="width=device-width, initial-scale=1.0"
           />
           <meta charSet="utf-8" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Raleway"
+            rel="stylesheet"
+          />
           <link rel="stylesheet" href="/static/css/styles.css" />
           <link rel="stylesheet" href="/static/css/nprogress.css" />
           <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
