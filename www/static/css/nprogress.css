@@ -4,7 +4,7 @@
 }
 
 #nprogress .bar {
-  background: #fff;
+  background: #17a2b8;
 
   position: fixed;
   z-index: 1031;
@@ -35,8 +35,8 @@
   display: block;
   position: fixed;
   z-index: 1031;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
 }
 
 #nprogress .spinner-icon {
@@ -45,7 +45,7 @@
   box-sizing: border-box;
 
   border: solid 2px transparent;
-  border-top-color: #fff;
+  border-top-color: #17a2b8;
   border-left-color: #fff;
   border-radius: 50%;
 

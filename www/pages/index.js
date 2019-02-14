@@ -1,28 +1,10 @@
 import React from "react";
 import { Button } from "reactstrap";
 import Page from "../components/page";
+import KeywordsAnimation from "../components/animations/keywords";
 
 export default () => (
   <Page>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
+    <KeywordsAnimation />
   </Page>
 );
