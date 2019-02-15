@@ -48,7 +48,7 @@ class Navigation extends Component {
             title="NextTrek Home"
             className="f3 fw5"
           >
-            {config.brandName} <FaGrav size={32} className="mx-2" />
+            <FaGrav size={32} className="mx-2" />
           </a>
         </Link>
         <NavbarToggler onClick={this.toggle} />

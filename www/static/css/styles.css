@@ -23,7 +23,7 @@ body {
   font-family: "Raleway", sans-serif !important;
 }
 .footerless {
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 80px);
 }
 footer {
   min-height: 60px;
@@ -57,13 +57,14 @@ footer {
   transition: all 0.2s ease-in-out 0s;
 }
 #navbar-main a:hover {
-  color: #17a2b8;
+  color: #f70057;
 }
 #navbar-main li.nav-item {
   margin-right: 2em;
 }
 .content-container {
-  margin-top: 5em;
+  padding-top: 5em;
+  /*min-height: 620px;*/
 }
 ::selection {
   background-color: #17a2b8;
@@ -134,4 +135,68 @@ footer {
 }
 .tc {
   text-align: center;
+}
+.c-black {
+  color: black;
+}
+.btn-black {
+  background-color: black !important;
+}
+.btn-pulse {
+  animation: shadow-pulse 1.8s infinite;
+}
+.btn-pulse:hover {
+  -webkit-animation: none;
+}
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.32);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(255, 255, 255, 0);
+  }
+}
+.bg-home {
+  background-image: linear-gradient(
+    to right top,
+    #e60000,
+    #f70057,
+    #ef3b96,
+    #d268c6,
+    #ac89e2,
+    #9096e8,
+    #78a0e7,
+    #68a8e1,
+    #51a7d9,
+    #3ba6d0,
+    #27a4c5,
+    #17a2b8
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  height: 100%;
+}
+.splash {
+  background-image: linear-gradient(
+    to right top,
+    #e60000,
+    #f70057,
+    #ef3b96,
+    #d268c6,
+    #ac89e2,
+    #9096e8,
+    #78a0e7,
+    #68a8e1,
+    #51a7d9,
+    #3ba6d0,
+    #27a4c5,
+    #17a2b8
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100px;
+  color: #fff;
+  padding-top: 6em;
+  padding-bottom: 50px;
 }
