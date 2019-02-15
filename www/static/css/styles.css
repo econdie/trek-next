@@ -142,6 +142,10 @@ footer {
 .btn-black {
   background-color: black !important;
 }
+.btn:hover {
+  border: 1px solid #f70057 !important;
+  color: #f70057 !important;
+}
 .btn-pulse {
   animation: shadow-pulse 1.8s infinite;
 }
