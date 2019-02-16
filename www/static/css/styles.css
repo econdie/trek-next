@@ -229,26 +229,14 @@ footer {
   height: 100%;
 }
 .bg-signup {
-  /*  background-image: linear-gradient(to left bottom, #2b5089, #146499, #0078a5, #008cae, #219fb4);
-*/
-  background-image: linear-gradient(
-    to left bottom,
-    #65c0c8,
-    #57b7c2,
-    #48aebd,
-    #38a6b7,
-    #249db2
+  background-image: radial-gradient(
+    circle,
+    #4c4c4c,
+    #4c4c4c 1px,
+    #f7f7f7 1px,
+    #f7f7f7
   );
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: linear-gradient(
-    to left bottom,
-    #ffffff,
-    #fafbfd,
-    #f3f8fb,
-    #ecf5f8,
-    #e5f2f2
-  );
+  background-size: 22px 22px;
   color: black;
   height: 100%;
 }

@@ -87,15 +87,12 @@ class SignUp extends Component {
             noindex: true
           }}
         />
-        <Row className="my-1">
+        <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
           <Col xs={{ size: 12 }}>
             <h3 className="tc">
               <strong>Create your account</strong>
             </h3>
           </Col>
-        </Row>
-
-        <Row className="mb-1 pb-4">
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/login">
               <a className="c-crimson c-black-hover f4 fw6">
@@ -105,7 +102,10 @@ class SignUp extends Component {
           </Col>
         </Row>
 
-        <Row style={{ height: "350px" }}>
+        <Row
+          className="py-3"
+          style={{ height: "350px", backgroundColor: "#f6f6f6" }}
+        >
           <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
             <Form className="f4">
               <FormGroup style={{ height: "90px" }}>
@@ -198,7 +198,14 @@ class SignUp extends Component {
           </Col>
         </Row>
 
-        <Row className="mb-4 pb-4" style={{ height: "100px" }}>
+        <Row
+          className="py-3"
+          style={{
+            height: "100px",
+            backgroundColor: "#fff",
+            marginBottom: "50px"
+          }}
+        >
           <Col
             xs={{ size: 12 }}
             className="tc c-crimson f4 fw2"
