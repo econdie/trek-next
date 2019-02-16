@@ -139,6 +139,9 @@ footer {
 .tc {
   text-align: center;
 }
+.c-success {
+  color: green;
+}
 .c-black {
   color: black;
 }
@@ -176,6 +179,34 @@ footer {
     box-shadow: 0 0 0 25px rgba(255, 255, 255, 0);
   }
 }
+.btn-pulse-black {
+  animation: shadow-pulse-black 1.8s infinite;
+}
+.btn-pulse-black:hover {
+  -webkit-animation: none;
+}
+@keyframes shadow-pulse-black {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.32);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(255, 255, 255, 0);
+  }
+}
+.btn-pulse-crimson {
+  animation: shadow-pulse-crimson 1.8s infinite;
+}
+.btn-pulse-crimson:hover {
+  -webkit-animation: none;
+}
+@keyframes shadow-pulse-crimson {
+  0% {
+    box-shadow: 0 0 0 0px rgba(247, 0, 87, 0.32);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(255, 255, 255, 0);
+  }
+}
 .bg-home {
   background-image: linear-gradient(
     to right top,
@@ -198,8 +229,27 @@ footer {
   height: 100%;
 }
 .bg-signup {
-  background-color: rgba(59, 166, 208, 0.9);
-  color: #fff;
+  /*  background-image: linear-gradient(to left bottom, #2b5089, #146499, #0078a5, #008cae, #219fb4);
+*/
+  background-image: linear-gradient(
+    to left bottom,
+    #65c0c8,
+    #57b7c2,
+    #48aebd,
+    #38a6b7,
+    #249db2
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(
+    to left bottom,
+    #ffffff,
+    #fafbfd,
+    #f3f8fb,
+    #ecf5f8,
+    #e5f2f2
+  );
+  color: black;
   height: 100%;
 }
 .splash {

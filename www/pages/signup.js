@@ -10,6 +10,7 @@ import {
   FormText,
   FormFeedback
 } from "reactstrap";
+import { FaLock, FaUnlock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
@@ -76,7 +77,7 @@ class SignUp extends Component {
       validate.password == "valid" &&
       validate.confirmPassword == "valid";
     let btnSubmitClass = "btn-crimson";
-    btnSubmitClass += isValidated ? " btn-pulse" : "";
+    btnSubmitClass += isValidated ? " btn-pulse-crimson" : "";
     return (
       <Page bg="signup">
         <NextSeo
@@ -89,27 +90,22 @@ class SignUp extends Component {
         <Row className="my-1">
           <Col xs={{ size: 12 }}>
             <h3 className="tc">
-              <strong>
-                Thanks for your interest, register for a free account!
-              </strong>
+              <strong>Create your account</strong>
             </h3>
           </Col>
         </Row>
 
-        <Row className="mb-3 pb-4">
+        <Row className="mb-1 pb-4">
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/login">
-              <a
-                className="c-black c-crimson-hover f3 fw6"
-                style={{ textDecoration: "underline" }}
-              >
+              <a className="c-crimson c-black-hover f4 fw6">
                 Already have an account?
               </a>
             </Link>
           </Col>
         </Row>
 
-        <Row className="mt-3" style={{ height: "350px" }}>
+        <Row style={{ height: "350px" }}>
           <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
             <Form className="f4">
               <FormGroup style={{ height: "90px" }}>
@@ -202,18 +198,22 @@ class SignUp extends Component {
           </Col>
         </Row>
 
-        {!isValidated ? (
-          <Row className="mt-4 mb-2">
-            <Col xs={{ size: 12 }} className="tc c-crimson">
-              Provide missing details above to unlock
-            </Col>
-          </Row>
-        ) : null}
-
-        <Row className="mb-4 pb-4">
-          <Col xs={{ size: 12 }} className="tc">
-            <Button className={btnSubmitClass} disabled={!isValidated}>
-              Submit
+        <Row className="mb-4 pb-4" style={{ height: "100px" }}>
+          <Col
+            xs={{ size: 12 }}
+            className="tc c-crimson f4 fw2"
+            style={{ height: "30px" }}
+          >
+            {!isValidated ? "Provide missing details above to unlock" : null}
+          </Col>
+          <Col xs={{ size: 12 }} className="tc" style={{ height: "70px" }}>
+            <Button
+              className={btnSubmitClass}
+              disabled={!isValidated}
+              style={{ minWidth: "130px" }}
+            >
+              Submit{" "}
+              {!isValidated ? <FaLock size={16} className="ml-1 mb-1" /> : null}
             </Button>
           </Col>
         </Row>
