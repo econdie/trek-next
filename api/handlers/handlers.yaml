@@ -1,5 +1,0 @@
-runtime: go111
-service: api
-handlers:
-  - url: /.*
-    script: _go_app
