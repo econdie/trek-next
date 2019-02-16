@@ -94,6 +94,9 @@ footer {
 .f6 {
   font-size: 0.7901234567901234em;
 }
+.f7 {
+  font-size: 0.5901234567901234em;
+}
 .fw1 {
   font-weight: 100;
 }
@@ -128,7 +131,7 @@ footer {
   color: #757575;
 }
 .tl {
-  color: #f1f1f1;
+  color: #f1f1f1 !important;
 }
 .tlf {
   color: #8c8c8c;
@@ -139,12 +142,25 @@ footer {
 .c-black {
   color: black;
 }
+.c-crimson {
+  color: #f70057;
+}
+.c-crimson-hover:hover {
+  color: #f70057 !important;
+}
 .btn-black {
   background-color: black !important;
 }
-.btn:hover {
+.btn-crimson {
+  background-color: #f70057 !important;
+}
+.btn-black:hover {
   border: 1px solid #f70057 !important;
   color: #f70057 !important;
+}
+.btn-crimson:hover {
+  border: 1px solid black !important;
+  color: black !important;
 }
 .btn-pulse {
   animation: shadow-pulse 1.8s infinite;
@@ -178,6 +194,11 @@ footer {
   );
   background-repeat: no-repeat;
   background-size: cover;
+  color: #fff;
+  height: 100%;
+}
+.bg-signup {
+  background-color: rgba(59, 166, 208, 0.9);
   color: #fff;
   height: 100%;
 }

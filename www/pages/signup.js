@@ -1,12 +1,225 @@
-import React from "react";
-import { Button } from "reactstrap";
+import React, { Component } from "react";
+import {
+  Button,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  FormFeedback
+} from "reactstrap";
+import Link from "next/link";
+import NextSeo from "next-seo";
 import Page from "../components/page";
+import config from "../config.json";
 
-export default () => (
-  <Page>
-    <div>
-      Welcome to next.js!
-      <Button color="danger">Test</Button>
-    </div>
-  </Page>
-);
+class SignUp extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: {},
+      validate: {},
+      focused: ""
+    };
+  }
+
+  validateEmail = e => {
+    const { validate, data } = this.state;
+    if (e.target.value.length === 0) {
+      validate.email = false;
+    } else {
+      const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      validate.email = regex.test(e.target.value) ? "valid" : "invalid";
+    }
+
+    data.email = e.target.value;
+    this.setState({ validate, data });
+  };
+
+  validatePassword = e => {
+    const { validate, data } = this.state;
+    if (e.target.value.length === 0) {
+      validate.password = false;
+    } else {
+      validate.password = e.target.value.length >= 8 ? "valid" : "invalid";
+    }
+    data.password = e.target.value;
+    this.setState({ validate, data });
+  };
+
+  validateConfirmPassword = e => {
+    const { validate, data } = this.state;
+    if (e.target.value.length === 0) {
+      validate.confirmPassword = false;
+    } else {
+      validate.confirmPassword =
+        data.password && e.target.value === data.password ? "valid" : "invalid";
+    }
+    data.confirmPassword = e.target.value;
+    this.setState({ validate, data });
+  };
+
+  focusInput = input => {
+    this.setState({ focused: input });
+  };
+
+  render() {
+    const { validate } = this.state;
+    const isValidated =
+      validate.email &&
+      validate.password &&
+      validate.confirmPassword &&
+      validate.email == "valid" &&
+      validate.password == "valid" &&
+      validate.confirmPassword == "valid";
+    let btnSubmitClass = "btn-crimson";
+    btnSubmitClass += isValidated ? " btn-pulse" : "";
+    return (
+      <Page bg="signup">
+        <NextSeo
+          config={{
+            title: "Sign Up",
+            description: "TrekNext signup page",
+            noindex: true
+          }}
+        />
+        <Row className="my-1">
+          <Col xs={{ size: 12 }}>
+            <h3 className="tc">
+              <strong>
+                Thanks for your interest, register for a free account!
+              </strong>
+            </h3>
+          </Col>
+        </Row>
+
+        <Row className="mb-3 pb-4">
+          <Col xs={{ size: 12 }} className="tc">
+            <Link href="/login">
+              <a
+                className="c-black c-crimson-hover f3 fw6"
+                style={{ textDecoration: "underline" }}
+              >
+                Already have an account?
+              </a>
+            </Link>
+          </Col>
+        </Row>
+
+        <Row className="mt-3" style={{ height: "350px" }}>
+          <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
+            <Form className="f4">
+              <FormGroup style={{ height: "90px" }}>
+                <Label for="email">Email</Label>
+                <Input
+                  valid={
+                    this.state.validate.email &&
+                    this.state.validate.email === "valid"
+                  }
+                  invalid={
+                    this.state.validate.email &&
+                    this.state.validate.email === "invalid"
+                  }
+                  type="email"
+                  name="email"
+                  id="email"
+                  autoComplete={0}
+                  placeholder=""
+                  onChange={this.validateEmail}
+                  onFocus={() => this.focusInput("email")}
+                  onBlur={() => this.setState({ focused: "" })}
+                />
+                {this.state.focused !== "email" ? (
+                  <FormFeedback>
+                    <strong>Please provide a valid email!</strong>
+                  </FormFeedback>
+                ) : null}
+              </FormGroup>
+              <FormGroup style={{ height: "100px" }}>
+                <Label for="mainPassword">Password</Label>
+                <Input
+                  valid={
+                    this.state.validate.password &&
+                    this.state.validate.password === "valid"
+                  }
+                  invalid={
+                    this.state.validate.password &&
+                    this.state.validate.password === "invalid"
+                  }
+                  type="password"
+                  name="mainPassword"
+                  id="mainPassword"
+                  placeholder=""
+                  onChange={this.validatePassword}
+                  onFocus={() => this.focusInput("password")}
+                  onBlur={() => this.setState({ focused: "" })}
+                />
+                {this.state.focused !== "password" ? (
+                  <FormFeedback>
+                    <strong>
+                      Please make your password at least 8 characters!
+                    </strong>
+                  </FormFeedback>
+                ) : null}
+                {this.state.validate.password == "invalid" &&
+                this.state.focused !== "password" ? null : (
+                  <small>must contain at least 8 characters.</small>
+                )}
+              </FormGroup>
+              <FormGroup style={{ height: "100px" }}>
+                <Label for="confirmPassword">Confirm Password</Label>
+                <Input
+                  valid={
+                    this.state.validate.confirmPassword &&
+                    this.state.validate.confirmPassword === "valid"
+                  }
+                  invalid={
+                    this.state.validate.confirmPassword &&
+                    this.state.validate.confirmPassword === "invalid"
+                  }
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder=""
+                  onChange={this.validateConfirmPassword}
+                  onFocus={() => this.focusInput("confirmPassword")}
+                  onBlur={() => this.setState({ focused: "" })}
+                />
+                {this.state.focused !== "confirmPassword" ? (
+                  <FormFeedback>
+                    <strong>Passwords do not match!</strong>
+                  </FormFeedback>
+                ) : null}
+                {this.state.validate.confirmPassword == "invalid" &&
+                this.state.focused !== "confirmPassword" ? null : (
+                  <small>must match previous password.</small>
+                )}
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
+
+        {!isValidated ? (
+          <Row className="mt-4 mb-2">
+            <Col xs={{ size: 12 }} className="tc c-crimson">
+              Provide missing details above to unlock
+            </Col>
+          </Row>
+        ) : null}
+
+        <Row className="mb-4 pb-4">
+          <Col xs={{ size: 12 }} className="tc">
+            <Button className={btnSubmitClass} disabled={!isValidated}>
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      </Page>
+    );
+  }
+}
+
+export default SignUp;

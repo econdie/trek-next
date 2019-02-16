@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Link from "next/link";
 import { Button, Container, Row, Col } from "reactstrap";
 import NextSeo from "next-seo";
 import Page from "../components/page";
@@ -41,7 +42,11 @@ class Index extends Component {
         <br />
         <Row className="my-4 pt-4">
           <Col xs={{ size: 12 }} className="tc">
-            <Button className="btn-black btn-pulse">Get Started</Button>
+            <Link href="/signup">
+              <a>
+                <Button className="btn-black btn-pulse">Get Started</Button>
+              </a>
+            </Link>
           </Col>
         </Row>
       </Page>
