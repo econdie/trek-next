@@ -79,12 +79,16 @@ class SignUp extends Component {
     let btnSubmitClass = "btn-crimson";
     btnSubmitClass += isValidated ? " btn-pulse-crimson" : "";
     return (
-      <Page bg="signup">
+      <Page bg="auth">
         <NextSeo
           config={{
             title: "Sign Up",
-            description: "TrekNext signup page",
-            noindex: true
+            description: "Create your free TrekNext account",
+            noindex: true,
+            openGraph: {
+              url: this.props.absoluteURL,
+              title: "Create your free TrekNext account"
+            }
           }}
         />
         <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
@@ -219,7 +223,7 @@ class SignUp extends Component {
               disabled={!isValidated}
               style={{ minWidth: "130px" }}
             >
-              Submit{" "}
+              Submit
               {!isValidated ? <FaLock size={16} className="ml-1 mb-1" /> : null}
             </Button>
           </Col>

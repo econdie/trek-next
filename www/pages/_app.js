@@ -3,6 +3,7 @@ import Router from "next/router";
 import React from "react";
 import NextSeo from "next-seo";
 import NProgress from "nprogress";
+import config from "../config.json";
 
 // import default seo configuration
 import SEO from "../next-seo.config";
@@ -31,6 +32,8 @@ export default class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
+    //inject this absoluteURL property to every page so we can use in open graph
+    pageProps.absoluteURL = config.baseUrl + ctx.asPath;
     return { pageProps };
   }
 
