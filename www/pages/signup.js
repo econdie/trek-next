@@ -14,9 +14,17 @@ import { FaLock, FaUnlock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
+import http from "../services/httpService";
 import config from "../config.json";
 
 class SignUp extends Component {
+  static getInitialProps({ req }) {
+    const api =
+      process.env.NODE_ENV === "production" ? config.API_PROD : config.API_DEV;
+
+    return { api };
+  }
+
   constructor(props) {
     super(props);
 
@@ -65,6 +73,23 @@ class SignUp extends Component {
 
   focusInput = input => {
     this.setState({ focused: input });
+  };
+
+  handleSignUp = () => {
+    const { email, password } = this.state.data;
+    const endpoint = "/";
+
+    http
+      .post(`${this.props.api}${endpoint}`, {
+        email: email,
+        password: password
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {
@@ -222,6 +247,7 @@ class SignUp extends Component {
               className={btnSubmitClass}
               disabled={!isValidated}
               style={{ minWidth: "130px" }}
+              onClick={this.handleSignUp}
             >
               Submit
               {!isValidated ? <FaLock size={16} className="ml-1 mb-1" /> : null}

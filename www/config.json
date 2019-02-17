@@ -1,5 +1,6 @@
 {
-  "apiEndpoint": "https://www.api.treknext.com/",
+  "API_PROD": "https://www.api.treknext.com",
+  "API_DEV": "http://localhost:8080",
   "baseUrl": "https://www.treknext.com",
   "brand": "TrekNext",
   "motto": "What will be your next adventure?",
