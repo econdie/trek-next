@@ -4,6 +4,7 @@ import (
   "fmt"
   "database/sql"
   _ "github.com/go-sql-driver/mysql"
+  _ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 )
 
 var (

@@ -5,21 +5,52 @@ import (
   "net/http"
   "log"
   "os"
+  "encoding/json"
   "github.com/rs/cors"
   "github.com/gorilla/mux"
+  "github.com/econdie/trek-next/api/auth"
   "github.com/econdie/trek-next/api/database"
+  "github.com/econdie/trek-next/api/model"
 )
 
 var (
   jwtkey = os.Getenv("JWT_KEY")
 )
 
+//helper function to json encode a response
+func jsonResponse(response interface {}, w http.ResponseWriter) {
+  w.Header().Set("Content-Type", "application/json")
+
+  json, err := json.Marshal(response)
+  if err != nil {
+    w.WriteHeader(http.StatusInternalServerError)
+    return
+  }
+
+  w.WriteHeader(response.(model.StandardResponse).Status)
+  w.Write(json)
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "Hello World")
 }
 
 func signupHandler(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprint(w, "Hello World")
+  type requestFormat struct {
+    Email    string `json:"email"`
+    Password string `json:"password"`
+  }
+
+  request := requestFormat{}
+
+  err := json.NewDecoder(r.Body).Decode(&request)
+  if err != nil {
+    var response model.StandardResponse
+    response.Status = http.StatusBadRequest
+    jsonResponse(response, w)
+  } else {
+    jsonResponse(auth.Register(request.Email, request.Password), w)
+  }  
 }
 
 //we need to check if the database environment variables have been set in the yaml
