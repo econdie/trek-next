@@ -85,6 +85,7 @@ class Login extends Component {
             </h2>
           </Col>
         </Row>
+
         <Row className="py-3 mt-3 bg-radial">
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/signup">
