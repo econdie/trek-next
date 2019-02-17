@@ -7,14 +7,20 @@ import KeywordsAnimation from "../components/animations/keywords";
 import config from "../config.json";
 
 class Index extends Component {
+  // TODO use trail to animate brand text https://codesandbox.io/embed/zn2q57vn13
   render() {
     return (
       <Page bg="home">
         <NextSeo
           config={{
-            title: config.brand,
-            description: config.motto,
-            noindex: false
+            title: config.motto,
+            description: config.tagline,
+            noindex: false,
+            openGraph: {
+              url: this.props.absoluteURL,
+              title: config.motto,
+              description: config.tagline
+            }
           }}
         />
         <Row>

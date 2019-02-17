@@ -1,6 +1,6 @@
 export default {
   title: "Trek Next",
-  titleTemplate: `%s`,
+  titleTemplate: `%s | TrekNext`,
   description: "What will be your next trek?",
   noindex: true,
   openGraph: {

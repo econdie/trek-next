@@ -73,16 +73,19 @@ class Login extends Component {
             noindex: true,
             openGraph: {
               url: this.props.absoluteURL,
-              title: "Login to TrekNext"
+              title: "Login",
+              description: "Login to TrekNext"
             }
           }}
         />
-        <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
+        <Row>
           <Col xs={{ size: 12 }}>
-            <h3 className="tc">
+            <h2 className="tc tl">
               <strong>Login to your account</strong>
-            </h3>
+            </h2>
           </Col>
+        </Row>
+        <Row className="py-3 mt-3 bg-radial">
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/signup">
               <a className="c-crimson c-black-hover f4 fw6">
@@ -156,16 +159,14 @@ class Login extends Component {
         </Row>
 
         <Row
-          className="py-3"
+          className="pt-3 bg-radial"
           style={{
-            height: "100px",
-            backgroundColor: "#fff",
-            marginBottom: "50px"
+            height: "100px"
           }}
         >
           <Col
             xs={{ size: 12 }}
-            className="tc c-crimson f4 fw2"
+            className="tc c-crimson f4 fw2 mb-1"
             style={{ height: "30px" }}
           >
             {!isValidated ? "Provide missing details above to unlock" : null}

@@ -229,12 +229,33 @@ footer {
   height: 100%;
 }
 .bg-auth {
+  background-image: linear-gradient(
+    to right top,
+    #e60000,
+    #f70057,
+    #ef3b96,
+    #d268c6,
+    #ac89e2,
+    #9096e8,
+    #78a0e7,
+    #68a8e1,
+    #51a7d9,
+    #3ba6d0,
+    #27a4c5,
+    #17a2b8
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: black;
+  height: 100%;
+}
+.bg-radial {
   background-image: radial-gradient(
     circle,
-    #4c4c4c,
-    #4c4c4c 1px,
-    #f7f7f7 1px,
-    #f7f7f7
+    #d7d7d7,
+    #d7d7d7 1px,
+    #fff 1px,
+    #fff
   );
   background-size: 22px 22px;
   color: black;

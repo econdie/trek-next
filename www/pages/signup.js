@@ -109,17 +109,11 @@ class SignUp extends Component {
         Router.push("/");
       })
       .catch(error => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          this.setState({ error: error.response.data.message });
-        } else {
-          this.setState({ error: config.error.unexpected });
-        }
-      })
-      .finally(() => {
+        const errorMsg =
+          error.response && error.response.data && error.response.data.message
+            ? error.response.data.message
+            : config.error.unexpected;
+
         this.setState({
           isSubmitting: false,
           data: { email, password: "", confirmPassword: "" },
@@ -127,7 +121,8 @@ class SignUp extends Component {
             password: false,
             confirmPassword: false,
             email: "invalid"
-          }
+          },
+          error: errorMsg
         });
         this.focusInput("email");
       });
@@ -154,16 +149,19 @@ class SignUp extends Component {
             noindex: true,
             openGraph: {
               url: this.props.absoluteURL,
-              title: "Create your free TrekNext account"
+              title: "Sign Up",
+              description: "Create your free TrekNext account"
             }
           }}
         />
-        <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
+        <Row>
           <Col xs={{ size: 12 }}>
-            <h3 className="tc">
+            <h2 className="tc tl">
               <strong>Create your account</strong>
-            </h3>
+            </h2>
           </Col>
+        </Row>
+        <Row className="py-3 mt-3 bg-radial">
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/login">
               <a className="c-crimson c-black-hover f4 fw6">
@@ -273,16 +271,15 @@ class SignUp extends Component {
         </Row>
 
         <Row
-          className="py-3"
+          className="pt-3 bg-radial"
           style={{
             height: "100px",
-            backgroundColor: "#fff",
-            marginBottom: "50px"
+            marginBottom: "40px"
           }}
         >
           <Col
             xs={{ size: 12 }}
-            className="tc c-crimson f4 fw2"
+            className="tc c-crimson f4 fw2 mb-1"
             style={{ height: "30px" }}
           >
             {!isValidated && !this.state.error
