@@ -33,7 +33,7 @@ func Register(email string, password string) model.StandardResponse {
 	//password email server side validation
 	if len(password) < 8 {
 		response.Status = http.StatusBadRequest
-		response.Error = "Password must be at least 8 characters."
+		response.Message = "Password must be at least 8 characters."
 		return response
 	}
 
@@ -41,7 +41,7 @@ func Register(email string, password string) model.StandardResponse {
 	hash, err := hashPassword(password)
 	if err != nil {
 		response.Status = http.StatusInternalServerError
-		response.Error = "Error handling password."
+		response.Message = "Error handling password."
 		return response
 	}
 
@@ -90,8 +90,8 @@ func Register(email string, password string) model.StandardResponse {
 		}
 
 		response.Status = http.StatusOK
-		response.Data = make(map[string]interface{})
-		response.Data["code"] = code
+		response.Payload = make(map[string]interface{})
+		response.Payload["code"] = code
 		return response
 	}
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from "next/router";
 import {
   Button,
   Row,
@@ -8,7 +9,8 @@ import {
   Label,
   Input,
   FormText,
-  FormFeedback
+  FormFeedback,
+  Spinner
 } from "reactstrap";
 import { FaLock, FaUnlock } from "react-icons/fa";
 import Link from "next/link";
@@ -29,9 +31,15 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
-      data: {},
+      data: {
+        email: "",
+        password: "",
+        confirmPassword: ""
+      },
       validate: {},
-      focused: ""
+      focused: "",
+      isSubmitting: false,
+      error: null
     };
   }
 
@@ -56,6 +64,11 @@ class SignUp extends Component {
       validate.password = e.target.value.length >= 8 ? "valid" : "invalid";
     }
     data.password = e.target.value;
+    if (data.confirmPassword && data.confirmPassword.length > 0) {
+      validate.confirmPassword =
+        data.password === data.confirmPassword ? "valid" : "invalid";
+    }
+
     this.setState({ validate, data });
   };
 
@@ -75,20 +88,48 @@ class SignUp extends Component {
     this.setState({ focused: input });
   };
 
+  resetForm = () => {
+    this.setState({
+      isSubmitting: false,
+      data: { email: "", password: "", confirmPassword: "" },
+      validate: { password: false, confirmPassword: false, email: false }
+    });
+  };
+
   handleSignUp = () => {
     const { email, password } = this.state.data;
     const endpoint = "/signup";
-
+    this.setState({ isSubmitting: true });
     http
       .post(`${this.props.api}${endpoint}`, {
         email: email,
         password: password
       })
-      .then(function(response) {
-        console.log(response);
+      .then(response => {
+        Router.push("/");
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(error => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          this.setState({ error: error.response.data.message });
+        } else {
+          this.setState({ error: config.error.unexpected });
+        }
+      })
+      .finally(() => {
+        this.setState({
+          isSubmitting: false,
+          data: { email, password: "", confirmPassword: "" },
+          validate: {
+            password: false,
+            confirmPassword: false,
+            email: "invalid"
+          }
+        });
+        this.focusInput("email");
       });
   };
 
@@ -102,7 +143,8 @@ class SignUp extends Component {
       validate.password == "valid" &&
       validate.confirmPassword == "valid";
     let btnSubmitClass = "btn-crimson";
-    btnSubmitClass += isValidated ? " btn-pulse-crimson" : "";
+    btnSubmitClass +=
+      isValidated && !this.state.isSubmitting ? " btn-pulse-crimson" : "";
     return (
       <Page bg="auth">
         <NextSeo
@@ -148,6 +190,7 @@ class SignUp extends Component {
                     this.state.validate.email &&
                     this.state.validate.email === "invalid"
                   }
+                  value={this.state.data.email}
                   type="email"
                   name="email"
                   id="email"
@@ -174,6 +217,7 @@ class SignUp extends Component {
                     this.state.validate.password &&
                     this.state.validate.password === "invalid"
                   }
+                  value={this.state.data.password}
                   type="password"
                   name="mainPassword"
                   id="mainPassword"
@@ -205,6 +249,7 @@ class SignUp extends Component {
                     this.state.validate.confirmPassword &&
                     this.state.validate.confirmPassword === "invalid"
                   }
+                  value={this.state.data.confirmPassword}
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
@@ -240,17 +285,30 @@ class SignUp extends Component {
             className="tc c-crimson f4 fw2"
             style={{ height: "30px" }}
           >
-            {!isValidated ? "Provide missing details above to unlock" : null}
+            {!isValidated && !this.state.error
+              ? "Provide missing details above to unlock"
+              : null}
+            {this.state.error ? this.state.error : null}
           </Col>
           <Col xs={{ size: 12 }} className="tc" style={{ height: "70px" }}>
             <Button
               className={btnSubmitClass}
-              disabled={!isValidated}
+              disabled={!isValidated || this.state.isSubmitting}
               style={{ minWidth: "130px" }}
-              onClick={this.handleSignUp}
+              onClick={() => this.handleSignUp()}
             >
-              Submit
-              {!isValidated ? <FaLock size={16} className="ml-1 mb-1" /> : null}
+              {this.state.isSubmitting ? "Thinking..." : "Submit"}
+              {!isValidated && !this.state.isSubmitting ? (
+                <FaLock size={16} className="ml-1 mb-1" />
+              ) : null}
+              {this.state.isSubmitting ? (
+                <Spinner
+                  color="light"
+                  size="sm"
+                  className="ml-1"
+                  style={{ marginBottom: "1px" }}
+                />
+              ) : null}
             </Button>
           </Col>
         </Row>

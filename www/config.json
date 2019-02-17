@@ -4,5 +4,8 @@
   "baseUrl": "https://www.treknext.com",
   "brand": "TrekNext",
   "motto": "What will be your next adventure?",
-  "tagline": "So you can keep track of your journeys on earth. Where you've travelled, lived, worked, went to school. Visualize and share your legacy."
+  "tagline": "So you can keep track of your journeys on earth. Where you've travelled, lived, worked, went to school. Visualize and share your legacy.",
+  "error": {
+    "unexpected": "Oops! Unexpected error occurred."
+  }
 }
