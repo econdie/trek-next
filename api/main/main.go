@@ -5,18 +5,20 @@ import (
   "net/http"
   "log"
   "os"
-  "database/sql"
   "github.com/rs/cors"
   "github.com/gorilla/mux"
-  _ "github.com/go-sql-driver/mysql"
+  "github.com/econdie/trek-next/api/database"
 )
 
 var (
-  db          *sql.DB
-  jwtkey      = os.Getenv("JWT_KEY")
+  jwtkey = os.Getenv("JWT_KEY")
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprint(w, "Hello World")
+}
+
+func signupHandler(w http.ResponseWriter, r *http.Request) {
   fmt.Fprint(w, "Hello World")
 }
 
@@ -35,6 +37,7 @@ func main() {
 
   //routes
   mux.HandleFunc("/", indexHandler)
+  mux.HandleFunc("/signup", signupHandler)
 
   //handler with CORS options
   handler := cors.New(cors.Options{
@@ -52,9 +55,8 @@ func main() {
     password       = checkEnv("CLOUDSQL_PASSWORD")
   )
 
-  //open the database connection
-  var err error
-  db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@cloudsql(%s)/journeyz_prod", user, password, connectionName))
+  //intialize database
+  err := database.Initialize(connectionName, user, password)
   if err != nil {
     log.Fatalf("Could not open db: %v", err)
   }

@@ -77,7 +77,7 @@ class SignUp extends Component {
 
   handleSignUp = () => {
     const { email, password } = this.state.data;
-    const endpoint = "/";
+    const endpoint = "/signup";
 
     http
       .post(`${this.props.api}${endpoint}`, {
