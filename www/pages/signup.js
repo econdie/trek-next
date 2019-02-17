@@ -165,7 +165,7 @@ class SignUp extends Component {
 
         <div style={{ maxWidth: "750px", margin: "0 auto" }}>
           <Container>
-            <Row className="py-3 mt-3 bg-radial">
+            <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
               <Col xs={{ size: 12 }} className="tc">
                 <Link href="/login">
                   <a className="c-crimson c-black-hover f4 fw6">
@@ -275,10 +275,11 @@ class SignUp extends Component {
             </Row>
 
             <Row
-              className="pt-3 bg-radial"
+              className="pt-3"
               style={{
                 height: "100px",
-                marginBottom: "40px"
+                marginBottom: "40px",
+                backgroundColor: "#fff"
               }}
             >
               <Col
