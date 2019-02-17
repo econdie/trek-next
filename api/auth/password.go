@@ -1,10 +1,10 @@
 package auth
 
 import (
-  "golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func hashPassword(password string) (string, error) {
-  bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-  return string(bytes), err
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
 }
