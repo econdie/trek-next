@@ -81,7 +81,7 @@ class Login extends Component {
         />
         <Row>
           <Col xs={{ size: 12 }}>
-            <h2 className="tc tl">
+            <h2 className="tc c-white ts1">
               <strong>Login to your account</strong>
             </h2>
           </Col>

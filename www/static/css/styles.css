@@ -142,6 +142,9 @@ footer {
 .c-success {
   color: green;
 }
+.c-white {
+  color: #fff;
+}
 .c-black {
   color: black;
 }
@@ -283,4 +286,7 @@ footer {
   color: #fff;
   padding-top: 6em;
   padding-bottom: 50px;
+}
+.ts1 {
+  text-shadow: black 1px 1px;
 }
