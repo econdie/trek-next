@@ -2,6 +2,7 @@ module github.com/econdie/trek-next/api
 
 require (
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190129172621-c8b1d7a94ddf
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gorilla/mux v1.7.0
 	github.com/rs/cors v1.6.0

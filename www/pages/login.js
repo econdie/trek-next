@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from "next/router";
 import {
   Button,
   Container,
@@ -9,22 +10,33 @@ import {
   Label,
   Input,
   FormText,
-  FormFeedback
+  FormFeedback,
+  Spinner
 } from "reactstrap";
-import { FaLock, FaUnlock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
+import http from "../services/httpService";
 import config from "../config.json";
 
 class Login extends Component {
+  static getInitialProps({ req }) {
+    return {};
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      data: {},
+      data: {
+        email: "",
+        password: ""
+      },
       validate: {},
-      focused: ""
+      focused: "",
+      isSubmitting: false,
+      error: null
     };
   }
 
@@ -56,6 +68,37 @@ class Login extends Component {
     this.setState({ focused: input });
   };
 
+  handleLogin = () => {
+    const { email, password } = this.state.data;
+    const endpoint = "/login";
+    this.setState({ isSubmitting: true, error: null });
+    http
+      .post(`${this.props.api}${endpoint}`, {
+        email: email,
+        password: password
+      })
+      .then(response => {
+        Router.push("/");
+      })
+      .catch(error => {
+        const errorMsg =
+          error.response && error.response.data && error.response.data.message
+            ? error.response.data.message
+            : config.error.unexpected;
+
+        this.setState({
+          isSubmitting: false,
+          data: { email: "", password: "" },
+          validate: {
+            password: false,
+            email: false
+          },
+          error: errorMsg
+        });
+        this.focusInput("email");
+      });
+  };
+
   render() {
     const { validate } = this.state;
     const isValidated =
@@ -64,7 +107,8 @@ class Login extends Component {
       validate.email == "valid" &&
       validate.password == "valid";
     let btnSubmitClass = "btn-crimson";
-    btnSubmitClass += isValidated ? " btn-pulse-crimson" : "";
+    btnSubmitClass +=
+      isValidated && !this.state.isSubmitting ? " btn-pulse-crimson" : "";
     return (
       <Page bg="auth">
         <NextSeo
@@ -115,6 +159,7 @@ class Login extends Component {
                         this.state.validate.email &&
                         this.state.validate.email === "invalid"
                       }
+                      value={this.state.data.email}
                       type="email"
                       name="email"
                       id="email"
@@ -141,6 +186,7 @@ class Login extends Component {
                         this.state.validate.password &&
                         this.state.validate.password === "invalid"
                       }
+                      value={this.state.data.password}
                       type="password"
                       name="mainPassword"
                       id="mainPassword"
@@ -173,19 +219,29 @@ class Login extends Component {
                 className="tc c-crimson f4 fw2 mb-1"
                 style={{ height: "30px" }}
               >
-                {!isValidated
+                {!isValidated && !this.state.error
                   ? "Provide missing details above to unlock"
                   : null}
+                {this.state.error ? this.state.error : null}
               </Col>
               <Col xs={{ size: 12 }} className="tc" style={{ height: "70px" }}>
                 <Button
                   className={btnSubmitClass}
-                  disabled={!isValidated}
+                  disabled={!isValidated || this.state.isSubmitting}
                   style={{ minWidth: "130px" }}
+                  onClick={() => this.handleLogin()}
                 >
-                  Login
-                  {!isValidated ? (
+                  {this.state.isSubmitting ? "Thinking..." : "Login"}
+                  {!isValidated && !this.state.isSubmitting ? (
                     <FaLock size={16} className="ml-1 mb-1" />
+                  ) : null}
+                  {this.state.isSubmitting ? (
+                    <Spinner
+                      color="light"
+                      size="sm"
+                      className="ml-1"
+                      style={{ marginBottom: "1px" }}
+                    />
                   ) : null}
                 </Button>
               </Col>

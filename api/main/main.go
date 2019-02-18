@@ -13,10 +13,6 @@ import (
 	"os"
 )
 
-var (
-	jwtkey = os.Getenv("JWT_KEY")
-)
-
 //helper function to json encode a response
 func jsonResponse(response interface{}, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
@@ -53,6 +49,24 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	type requestFormat struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	request := requestFormat{}
+
+	err := json.NewDecoder(r.Body).Decode(&request)
+	if err != nil {
+		var response model.StandardResponse
+		response.Status = http.StatusBadRequest
+		jsonResponse(response, w)
+	} else {
+		jsonResponse(auth.Login(request.Email, request.Password), w)
+	}
+}
+
 //we need to check if the database environment variables have been set in the yaml
 func checkEnv(envVar string) string {
 	v := os.Getenv(envVar)
@@ -69,6 +83,7 @@ func main() {
 	//routes
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/signup", signupHandler)
+	mux.HandleFunc("/login", loginHandler)
 
 	//handler with CORS options
 	handler := cors.New(cors.Options{

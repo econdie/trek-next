@@ -13,7 +13,7 @@ import {
   FormFeedback,
   Spinner
 } from "reactstrap";
-import { FaLock, FaUnlock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
@@ -22,10 +22,7 @@ import config from "../config.json";
 
 class SignUp extends Component {
   static getInitialProps({ req }) {
-    const api =
-      process.env.NODE_ENV === "production" ? config.API_PROD : config.API_DEV;
-
-    return { api };
+    return {};
   }
 
   constructor(props) {
