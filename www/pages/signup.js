@@ -18,7 +18,7 @@ import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
 import http from "../services/httpService";
-import { login } from "../services/authService";
+import { login, withoutAuth } from "../services/authService";
 import config from "../config.json";
 
 class SignUp extends Component {
@@ -338,4 +338,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withoutAuth(SignUp);

@@ -16,13 +16,14 @@ import {
 import { FaLock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
+import nextCookie from "next-cookies";
 import Page from "../components/page";
 import http from "../services/httpService";
-import { login } from "../services/authService";
+import { login, withoutAuth } from "../services/authService";
 import config from "../config.json";
 
 class Login extends Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps(ctx) {
     return {};
   }
 
@@ -273,4 +274,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withoutAuth(Login);

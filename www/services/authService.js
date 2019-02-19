@@ -17,6 +17,23 @@ export const logout = () => {
   Router.push("/");
 };
 
+export const withoutAuth = WrappedComponent =>
+  class extends Component {
+    static async getInitialProps(ctx) {
+      authless(ctx);
+
+      const componentProps =
+        WrappedComponent.getInitialProps &&
+        (await WrappedComponent.getInitialProps(ctx));
+
+      return { ...componentProps };
+    }
+
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+
 //wraps a child component to check for existance of JWT and injects token for usage
 export const withAuth = WrappedComponent =>
   class extends Component {
@@ -69,4 +86,20 @@ const auth = ctx => {
   }
 
   return token;
+};
+
+const authless = ctx => {
+  const { token } = nextCookie(ctx);
+
+  if (ctx.req && !!token) {
+    ctx.res.writeHead(302, { Location: "/profile" });
+    ctx.res.end();
+    return;
+  }
+
+  if (!!token) {
+    Router.push("/profile");
+  }
+
+  return;
 };
