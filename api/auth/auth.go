@@ -19,14 +19,6 @@ func Register(email string, password string) model.StandardResponse {
 		return response
 	}
 
-	//hash the password
-	hash, err := hashPassword(password)
-	if err != nil {
-		response.Status = http.StatusInternalServerError
-		response.Message = "Error handling password."
-		return response
-	}
-
 	//query db to check if email already exists
 	rows, err := database.Conn.Query("select email from user where email = ?", email)
 	if err != nil {
@@ -43,6 +35,14 @@ func Register(email string, password string) model.StandardResponse {
 		response.Message = "Email already registered."
 		return response
 	} else {
+		//hash the password
+		hash, err := hashPassword(password)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Error handling password."
+			return response
+		}
+
 		code, err := generateRandomString(32)
 		if err != nil {
 			response.Status = http.StatusInternalServerError
@@ -64,16 +64,29 @@ func Register(email string, password string) model.StandardResponse {
 			return response
 		}
 
-		_, err = res.LastInsertId()
+		userID, err := res.LastInsertId()
 		if err != nil {
 			response.Status = http.StatusInternalServerError
 			response.Message = "Database Error"
 			return response
 		}
 
+		token, err := createToken(int(userID), email)
+		if err != nil {
+			log.Fatal(err)
+			response.Status = http.StatusInternalServerError
+			response.Message = "Token Failure"
+			return response
+		}
+
+		//track a login
+		track.LoginLog(int(userID), token)
+
+		//return successful login response with JWT to store in cookie client side
 		response.Status = http.StatusOK
 		response.Payload = make(map[string]interface{})
 		response.Payload["code"] = code
+		response.Payload["token"] = token
 		return response
 	}
 }
@@ -109,7 +122,7 @@ func Login(email string, password string) model.StandardResponse {
 		//check if credentials are valid
 		if email == dbEmail && checkPasswordHash(password, dbPassword) {
 			//successful login
-			createdToken, err := createToken(dbUserID, dbEmail)
+			token, err := createToken(dbUserID, dbEmail)
 			if err != nil {
 				log.Fatal(err)
 				response.Status = http.StatusInternalServerError
@@ -118,13 +131,13 @@ func Login(email string, password string) model.StandardResponse {
 			}
 
 			//track the login
-			track.LoginLog(dbUserID, createdToken)
+			track.LoginLog(dbUserID, token)
 
-			//return successful login response
+			//return successful login response with JWT to store in cookie client side
 			response.Status = http.StatusOK
 			response.Message = "Successful Login"
 			response.Payload = make(map[string]interface{})
-			response.Payload["token"] = createdToken
+			response.Payload["token"] = token
 
 			return response
 		}

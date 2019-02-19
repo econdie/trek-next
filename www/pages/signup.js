@@ -18,6 +18,7 @@ import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
 import http from "../services/httpService";
+import { login } from "../services/authService";
 import config from "../config.json";
 
 class SignUp extends Component {
@@ -104,7 +105,22 @@ class SignUp extends Component {
         password: password
       })
       .then(response => {
-        Router.push("/");
+        if (response.data.payload.token !== undefined) {
+          login(response.data.payload.token);
+        } else {
+          const errorMsg = config.error.unexpected;
+          this.setState({
+            isSubmitting: false,
+            data: { email, password: "", confirmPassword: "" },
+            validate: {
+              password: false,
+              confirmPassword: false,
+              email: "invalid"
+            },
+            error: errorMsg
+          });
+          this.focusInput("email");
+        }
       })
       .catch(error => {
         const errorMsg =
