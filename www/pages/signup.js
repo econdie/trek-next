@@ -22,7 +22,7 @@ import { login } from "../services/authService";
 import config from "../config.json";
 
 class SignUp extends Component {
-  static getInitialProps({ req }) {
+  static async getInitialProps({ req }) {
     return {};
   }
 
