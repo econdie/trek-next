@@ -28,7 +28,7 @@ class Profile extends Component {
         />
         <Row className="my-4 pb-4">
           <Col xs={{ size: 12 }} className="f0 fw9">
-            <div className="tc c-black">Test123</div>
+            <div className="tc c-black">Profile</div>
           </Col>
         </Row>
       </Page>

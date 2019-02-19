@@ -6,7 +6,7 @@ import nextCookie from "next-cookies";
 //store JWT in cookie that expires in 7 days
 export const login = async token => {
   cookie.set("token", token, { expires: 7 });
-  Router.push("/");
+  Router.push("/profile");
 };
 
 //remove JWT from cookies

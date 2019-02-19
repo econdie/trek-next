@@ -187,13 +187,12 @@ class SignUp extends Component {
                 </Link>
               </Col>
             </Row>
-
-            <Row
-              className="py-3"
-              style={{ height: "350px", backgroundColor: "#f6f6f6" }}
-            >
-              <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
-                <Form className="f4">
+            <Form className="f4">
+              <Row
+                className="py-3"
+                style={{ height: "350px", backgroundColor: "#f6f6f6" }}
+              >
+                <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
                   <FormGroup style={{ height: "90px" }}>
                     <Label for="email">Email</Label>
                     <Input
@@ -283,50 +282,55 @@ class SignUp extends Component {
                       <small>must match previous password.</small>
                     )}
                   </FormGroup>
-                </Form>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
 
-            <Row
-              className="pt-3"
-              style={{
-                height: "100px",
-                marginBottom: "40px",
-                backgroundColor: "#fff"
-              }}
-            >
-              <Col
-                xs={{ size: 12 }}
-                className="tc c-crimson f4 fw2 mb-1"
-                style={{ height: "30px" }}
+              <Row
+                className="pt-3"
+                style={{
+                  height: "100px",
+                  marginBottom: "40px",
+                  backgroundColor: "#fff"
+                }}
               >
-                {!isValidated && !this.state.error
-                  ? "Provide missing details above to unlock"
-                  : null}
-                {this.state.error ? this.state.error : null}
-              </Col>
-              <Col xs={{ size: 12 }} className="tc" style={{ height: "70px" }}>
-                <Button
-                  className={btnSubmitClass}
-                  disabled={!isValidated || this.state.isSubmitting}
-                  style={{ minWidth: "130px" }}
-                  onClick={() => this.handleSignUp()}
+                <Col
+                  xs={{ size: 12 }}
+                  className="tc c-crimson f4 fw2 mb-1"
+                  style={{ height: "30px" }}
                 >
-                  {this.state.isSubmitting ? "Thinking..." : "Submit"}
-                  {!isValidated && !this.state.isSubmitting ? (
-                    <FaLock size={16} className="ml-1 mb-1" />
-                  ) : null}
-                  {this.state.isSubmitting ? (
-                    <Spinner
-                      color="light"
-                      size="sm"
-                      className="ml-1"
-                      style={{ marginBottom: "1px" }}
-                    />
-                  ) : null}
-                </Button>
-              </Col>
-            </Row>
+                  {!isValidated && !this.state.error
+                    ? "Provide missing details above to unlock"
+                    : null}
+                  {this.state.error ? this.state.error : null}
+                </Col>
+                <Col
+                  xs={{ size: 12 }}
+                  className="tc"
+                  style={{ height: "70px" }}
+                >
+                  <Button
+                    className={btnSubmitClass}
+                    disabled={!isValidated || this.state.isSubmitting}
+                    style={{ minWidth: "130px" }}
+                    onClick={() => this.handleSignUp()}
+                    type="submit"
+                  >
+                    {this.state.isSubmitting ? "Thinking..." : "Submit"}
+                    {!isValidated && !this.state.isSubmitting ? (
+                      <FaLock size={16} className="ml-1 mb-1" />
+                    ) : null}
+                    {this.state.isSubmitting ? (
+                      <Spinner
+                        color="light"
+                        size="sm"
+                        className="ml-1"
+                        style={{ marginBottom: "1px" }}
+                      />
+                    ) : null}
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
           </Container>
         </div>
       </Page>
