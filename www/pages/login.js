@@ -126,7 +126,7 @@ class Login extends Component {
     btnSubmitClass +=
       isValidated && !this.state.isSubmitting ? " btn-pulse-crimson" : "";
     return (
-      <Page bg="auth">
+      <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
           config={{
             title: "Login",

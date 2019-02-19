@@ -14,7 +14,7 @@ export const logout = () => {
   cookie.remove("token");
   // to support logging out from all windows
   window.localStorage.setItem("logout", Date.now());
-  Router.push("/login");
+  Router.push("/");
 };
 
 //wraps a child component to check for existance of JWT and injects token for usage

@@ -10,7 +10,7 @@ import config from "../config.json";
 class Index extends Component {
   render() {
     return (
-      <Page bg="home">
+      <Page bg="home" hasToken={this.props.hasToken}>
         <NextSeo
           config={{
             title: config.motto,

@@ -18,7 +18,7 @@ func createToken(userID int, email string) (string, error) {
 		"iss":    "treknext",
 		"email":  email,
 		"userid": userID,
-		"exp":    time.Now().Add(time.Hour * 72).Unix(),
+		"exp":    time.Now().Add(time.Hour * 24 * 7).Unix(),
 	}
 	// Sign and get the complete encoded token as a string
 	tokenString, err := token.SignedString([]byte(jwtKey))

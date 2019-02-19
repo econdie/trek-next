@@ -20,7 +20,7 @@ class Page extends Component {
     return (
       <React.Fragment>
         <div className={pageClasses}>
-          <Navigation />
+          <Navigation hasToken={this.props.hasToken} />
           {this.getSplash()}
           <div className="container content-container">
             {this.props.children}
@@ -33,7 +33,8 @@ class Page extends Component {
 }
 
 Page.defaultProps = {
-  bg: null
+  bg: null,
+  hasToken: false
 };
 
 export default Page;

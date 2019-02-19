@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import { FaGrav } from "react-icons/fa";
+import { logout } from "../../services/authService";
 import config from "../../config.json";
 
 class Navigation extends Component {
@@ -31,6 +32,45 @@ class Navigation extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
+  handleLogout = e => {
+    e.preventDefault();
+    logout();
+  };
+
+  getNavs = () => {
+    const { hasToken } = this.props;
+
+    if (hasToken) {
+      return (
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <Link href="">
+              <a className="f3 fw6" onClick={e => this.handleLogout(e)}>
+                Logout
+              </a>
+            </Link>
+          </NavItem>
+        </Nav>
+      );
+    } else {
+      return (
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <Link href="/login">
+              <a className="f3 fw6">Login</a>
+            </Link>
+          </NavItem>
+
+          <NavItem>
+            <Link href="/signup">
+              <a className="f3 fw6">Sign Up</a>
+            </Link>
+          </NavItem>
+        </Nav>
+      );
+    }
+  };
 
   render() {
     return (
@@ -53,19 +93,7 @@ class Navigation extends Component {
         </Link>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <Link href="/login">
-                <a className="f3 fw6">Login</a>
-              </Link>
-            </NavItem>
-
-            <NavItem>
-              <Link href="/signup">
-                <a className="f3 fw6">Sign Up</a>
-              </Link>
-            </NavItem>
-          </Nav>
+          {this.getNavs()}
         </Collapse>
       </Navbar>
     );

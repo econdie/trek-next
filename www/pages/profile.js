@@ -11,9 +11,8 @@ import config from "../config.json";
 class Profile extends Component {
   // TODO use trail to animate brand text https://codesandbox.io/embed/zn2q57vn13
   render() {
-    console.log(this.props);
     return (
-      <Page bg="home">
+      <Page bg="home" hasToken={this.props.hasToken}>
         <NextSeo
           config={{
             title: config.motto,

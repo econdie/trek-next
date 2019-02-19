@@ -3,6 +3,7 @@ import Router from "next/router";
 import React from "react";
 import NextSeo from "next-seo";
 import NProgress from "nprogress";
+import nextCookie from "next-cookies";
 import config from "../config.json";
 
 // import default seo configuration
@@ -32,7 +33,10 @@ export default class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    //inject this absoluteURL property to every page so we can use in open graph
+    //inject hasToken to every page to know if user is considered logged in
+    const { token } = nextCookie(ctx);
+    pageProps.hasToken = !!token;
+    //inject absoluteURL property to every page so we can use in open graph
     pageProps.absoluteURL = config.baseUrl + ctx.asPath;
     //inject api to pages so we know what endpoint to use
     pageProps.api =
