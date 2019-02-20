@@ -170,9 +170,7 @@ class SignUp extends Component {
         />
         <Row>
           <Col xs={{ size: 12 }}>
-            <h2 className="tc c-white ts1">
-              <strong>Create your account</strong>
-            </h2>
+            <h2 className="tc c-white ts1 fw6">Create your account</h2>
           </Col>
         </Row>
 
@@ -181,20 +179,20 @@ class SignUp extends Component {
             <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
               <Col xs={{ size: 12 }} className="tc">
                 <Link href="/login">
-                  <a className="c-crimson c-black-hover f4 fw6">
-                    Already have an account?
-                  </a>
+                  <a className="c-primary f5 fw6">Already have an account?</a>
                 </Link>
               </Col>
             </Row>
             <Form className="f4">
               <Row
                 className="py-3"
-                style={{ height: "350px", backgroundColor: "#f6f6f6" }}
+                style={{ height: "340px", backgroundColor: "#f6f6f6" }}
               >
                 <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
-                  <FormGroup style={{ height: "90px" }}>
-                    <Label for="email">Email</Label>
+                  <FormGroup style={{ height: "85px" }}>
+                    <Label for="email" className="f6 fw6">
+                      Email
+                    </Label>
                     <Input
                       valid={
                         this.state.validate.email &&
@@ -215,13 +213,13 @@ class SignUp extends Component {
                       onBlur={() => this.setState({ focused: "" })}
                     />
                     {this.state.focused !== "email" ? (
-                      <FormFeedback>
-                        <strong>Please provide a valid email!</strong>
-                      </FormFeedback>
+                      <FormFeedback>Please provide a valid email!</FormFeedback>
                     ) : null}
                   </FormGroup>
-                  <FormGroup style={{ height: "100px" }}>
-                    <Label for="mainPassword">Password</Label>
+                  <FormGroup style={{ height: "85px" }}>
+                    <Label for="mainPassword" className="f6 fw6">
+                      Password
+                    </Label>
                     <Input
                       valid={
                         this.state.validate.password &&
@@ -242,18 +240,20 @@ class SignUp extends Component {
                     />
                     {this.state.focused !== "password" ? (
                       <FormFeedback>
-                        <strong>
-                          Please make your password at least 8 characters!
-                        </strong>
+                        Please make your password at least 8 characters!
                       </FormFeedback>
                     ) : null}
                     {this.state.validate.password == "invalid" &&
                     this.state.focused !== "password" ? null : (
-                      <small>must contain at least 8 characters.</small>
+                      <span className="f6 fw2">
+                        must contain at least 8 characters.
+                      </span>
                     )}
                   </FormGroup>
-                  <FormGroup style={{ height: "100px" }}>
-                    <Label for="confirmPassword">Confirm Password</Label>
+                  <FormGroup style={{ height: "80px" }}>
+                    <Label for="confirmPassword" className="f6 fw6">
+                      Confirm Password
+                    </Label>
                     <Input
                       valid={
                         this.state.validate.confirmPassword &&
@@ -273,41 +273,33 @@ class SignUp extends Component {
                       onBlur={() => this.setState({ focused: "" })}
                     />
                     {this.state.focused !== "confirmPassword" ? (
-                      <FormFeedback>
-                        <strong>Passwords do not match!</strong>
-                      </FormFeedback>
+                      <FormFeedback>Passwords do not match!</FormFeedback>
                     ) : null}
                     {this.state.validate.confirmPassword == "invalid" &&
                     this.state.focused !== "confirmPassword" ? null : (
-                      <small>must match previous password.</small>
+                      <span className="f6 fw2">
+                        must match previous password.
+                      </span>
                     )}
                   </FormGroup>
                 </Col>
               </Row>
 
               <Row
-                className="pt-3"
+                className="py-3 mb-4"
                 style={{
-                  height: "100px",
-                  marginBottom: "40px",
                   backgroundColor: "#fff"
                 }}
               >
-                <Col
-                  xs={{ size: 12 }}
-                  className="tc c-crimson f4 fw2 mb-1"
-                  style={{ height: "30px" }}
-                >
-                  {!isValidated && !this.state.error
-                    ? "Provide missing details above to unlock"
-                    : null}
+                <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
+                  {!isValidated && !this.state.error ? (
+                    "Provide missing details above to unlock"
+                  ) : (
+                    <span className="c-success">All set to go!</span>
+                  )}
                   {this.state.error ? this.state.error : null}
                 </Col>
-                <Col
-                  xs={{ size: 12 }}
-                  className="tc"
-                  style={{ height: "70px" }}
-                >
+                <Col xs={{ size: 12 }} className="tc mt-2">
                   <Button
                     className={btnSubmitClass}
                     disabled={!isValidated || this.state.isSubmitting}

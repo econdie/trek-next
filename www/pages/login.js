@@ -142,9 +142,7 @@ class Login extends Component {
         />
         <Row>
           <Col xs={{ size: 12 }}>
-            <h2 className="tc c-white ts1">
-              <strong>Login to your account</strong>
-            </h2>
+            <h2 className="tc c-white ts1 fw6">Login to your account</h2>
           </Col>
         </Row>
         <div style={{ maxWidth: "750px", margin: "0 auto" }}>
@@ -152,20 +150,20 @@ class Login extends Component {
             <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
               <Col xs={{ size: 12 }} className="tc">
                 <Link href="/signup">
-                  <a className="c-crimson c-black-hover f4 fw6">
-                    Don't have an account?
-                  </a>
+                  <a className="c-primary f5 fw6">Don't have an account?</a>
                 </Link>
               </Col>
             </Row>
             <Form className="f4">
               <Row
                 className="py-3"
-                style={{ height: "250px", backgroundColor: "#f6f6f6" }}
+                style={{ height: "230px", backgroundColor: "#f6f6f6" }}
               >
                 <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
-                  <FormGroup style={{ height: "90px" }}>
-                    <Label for="email">Email</Label>
+                  <FormGroup style={{ height: "85px" }}>
+                    <Label for="email" className="f6 fw6">
+                      Email
+                    </Label>
                     <Input
                       valid={
                         this.state.validate.email &&
@@ -186,13 +184,13 @@ class Login extends Component {
                       onBlur={() => this.setState({ focused: "" })}
                     />
                     {this.state.focused !== "email" ? (
-                      <FormFeedback>
-                        <strong>Please provide a valid email!</strong>
-                      </FormFeedback>
+                      <FormFeedback>Please provide a valid email!</FormFeedback>
                     ) : null}
                   </FormGroup>
                   <FormGroup style={{ height: "100px" }}>
-                    <Label for="mainPassword">Password</Label>
+                    <Label for="mainPassword" className="f6 fw6">
+                      Password
+                    </Label>
                     <Input
                       valid={
                         this.state.validate.password &&
@@ -213,9 +211,7 @@ class Login extends Component {
                     />
                     {this.state.focused !== "password" ? (
                       <FormFeedback>
-                        <strong>
-                          Your password will be at least 8 characters!
-                        </strong>
+                        Your password will be at least 8 characters!
                       </FormFeedback>
                     ) : null}
                   </FormGroup>
@@ -223,27 +219,18 @@ class Login extends Component {
               </Row>
 
               <Row
-                className="pt-3"
+                className="py-3 mb-4"
                 style={{
-                  height: "100px",
                   backgroundColor: "#fff"
                 }}
               >
-                <Col
-                  xs={{ size: 12 }}
-                  className="tc c-crimson f4 fw2 mb-1"
-                  style={{ height: "30px" }}
-                >
+                <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
                   {!isValidated && !this.state.error
                     ? "Provide missing details above to unlock"
                     : null}
                   {this.state.error ? this.state.error : null}
                 </Col>
-                <Col
-                  xs={{ size: 12 }}
-                  className="tc"
-                  style={{ height: "70px" }}
-                >
+                <Col xs={{ size: 12 }} className="tc mt-2">
                   <Button
                     className={btnSubmitClass}
                     disabled={!isValidated || this.state.isSubmitting}
@@ -264,6 +251,13 @@ class Login extends Component {
                       />
                     ) : null}
                   </Button>
+                  <hr />
+                </Col>
+
+                <Col xs={{ size: 12 }} className="tc">
+                  <Link href="/signup">
+                    <a className="c-primary f6 fw6">Forgot your password?</a>
+                  </Link>
                 </Col>
               </Row>
             </Form>
