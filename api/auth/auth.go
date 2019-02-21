@@ -3,6 +3,7 @@ package auth
 import (
 	"github.com/econdie/trek-next/api/database"
 	"github.com/econdie/trek-next/api/model"
+	"github.com/econdie/trek-next/api/notify"
 	"github.com/econdie/trek-next/api/track"
 	"log"
 	"net/http"
@@ -149,5 +150,38 @@ func Login(email string, password string) model.StandardResponse {
 	}
 	response.Status = http.StatusUnprocessableEntity
 	response.Message = "Failed Login"
+	return response
+}
+
+func Reset(email string) model.StandardResponse {
+	var response model.StandardResponse
+
+	//validate user credentials
+	rows, err := database.Conn.Query("select id from user where email = ?", email)
+	if err != nil {
+		response.Status = http.StatusInternalServerError
+		response.Message = "Database Error"
+		return response
+	}
+
+	defer rows.Close()
+	hasResult := false
+	for rows.Next() {
+		hasResult = true
+
+		code := getResetCode(email)
+		err := notify.SendResetEmail(email, code)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			return response
+		}
+	}
+
+	//no email found - sleep so not obvious in case of no result
+	if !hasResult {
+		time.Sleep(1 * time.Second)
+	}
+	response.Status = http.StatusOK
+	response.Message = "Please check your email for further instructions."
 	return response
 }

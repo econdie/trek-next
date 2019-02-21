@@ -16,7 +16,6 @@ import {
 import { FaLock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
-import nextCookie from "next-cookies";
 import Page from "../components/page";
 import http from "../services/httpService";
 import { withoutAuth } from "../services/authService";

@@ -5,6 +5,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gorilla/mux v1.7.0
+	github.com/mailgun/mailgun-go/v3 v3.3.0
 	github.com/rs/cors v1.6.0
 	golang.org/x/crypto v0.0.0-20190211182817-74369b46fc67
 	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect
