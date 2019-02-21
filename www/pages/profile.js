@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Button, Container, Row, Col } from "reactstrap";
 import NextSeo from "next-seo";
 import Page from "../components/page";
-import MottoAnimation from "../components/animations/motto";
-import KeywordsAnimation from "../components/animations/keywords";
 import { withAuth } from "../services/authService";
 import config from "../config.json";
 

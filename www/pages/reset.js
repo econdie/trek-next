@@ -16,12 +16,13 @@ import {
 import { FaLock } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
+import nextCookie from "next-cookies";
 import Page from "../components/page";
 import http from "../services/httpService";
-import { login, withoutAuth } from "../services/authService";
+import { withoutAuth } from "../services/authService";
 import config from "../config.json";
 
-class Login extends Component {
+class Reset extends Component {
   static async getInitialProps(ctx) {
     return {};
   }
@@ -31,8 +32,7 @@ class Login extends Component {
 
     this.state = {
       data: {
-        email: "",
-        password: ""
+        email: ""
       },
       validate: {},
       focused: "",
@@ -54,47 +54,24 @@ class Login extends Component {
     this.setState({ validate, data });
   };
 
-  validatePassword = e => {
-    const { validate, data } = this.state;
-    if (e.target.value.length === 0) {
-      validate.password = false;
-    } else {
-      validate.password = e.target.value.length >= 8 ? "valid" : "invalid";
-    }
-    data.password = e.target.value;
-    this.setState({ validate, data });
-  };
-
-  focusInput = input => {
-    this.setState({ focused: input });
-  };
-
-  handleLogin = () => {
-    const { email, password } = this.state.data;
-    const endpoint = "/login";
+  handleReset = () => {
+    const { email } = this.state.data;
+    const endpoint = "/reset";
     this.setState({ isSubmitting: true, error: null });
     http
       .post(`${this.props.api}${endpoint}`, {
-        email: email,
-        password: password
+        email: email
       })
       .then(response => {
-        if (response.data.payload.token !== undefined) {
-          login(response.data.payload.token);
-        } else {
-          const errorMsg = config.error.unexpected;
-
-          this.setState({
-            isSubmitting: false,
-            data: { email: "", password: "" },
-            validate: {
-              password: false,
-              email: false
-            },
-            error: errorMsg
-          });
-          this.focusInput("email");
-        }
+        this.setState({
+          isSubmitting: false,
+          data: { email: "" },
+          validate: {
+            email: false
+          },
+          error: null
+        });
+        this.focusInput("email");
       })
       .catch(error => {
         const errorMsg =
@@ -104,9 +81,8 @@ class Login extends Component {
 
         this.setState({
           isSubmitting: false,
-          data: { email: "", password: "" },
+          data: { email: "" },
           validate: {
-            password: false,
             email: false
           },
           error: errorMsg
@@ -115,13 +91,13 @@ class Login extends Component {
       });
   };
 
+  focusInput = input => {
+    this.setState({ focused: input });
+  };
+
   render() {
     const { validate } = this.state;
-    const isValidated =
-      validate.email &&
-      validate.password &&
-      validate.email == "valid" &&
-      validate.password == "valid";
+    const isValidated = validate.email && validate.email == "valid";
     let btnSubmitClass = "btn-crimson";
     btnSubmitClass +=
       isValidated && !this.state.isSubmitting ? " btn-pulse-crimson" : "";
@@ -129,19 +105,19 @@ class Login extends Component {
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
           config={{
-            title: "Login",
-            description: "Login to TrekNext",
+            title: "Reset",
+            description: "Reset TrekNext password",
             noindex: true,
             openGraph: {
               url: this.props.absoluteURL,
-              title: "Login",
-              description: "Login to TrekNext"
+              title: "Reset",
+              description: "Reset TrekNext password"
             }
           }}
         />
         <Row>
           <Col xs={{ size: 12 }}>
-            <h2 className="tc c-white ts1 fw6">Login to your account</h2>
+            <h2 className="tc c-white ts1 fw6">Reset your password</h2>
           </Col>
         </Row>
         <div style={{ maxWidth: "750px", margin: "0 auto" }}>
@@ -154,10 +130,7 @@ class Login extends Component {
               </Col>
             </Row>
             <Form className="f4">
-              <Row
-                className="py-3"
-                style={{ height: "230px", backgroundColor: "#f6f6f6" }}
-              >
+              <Row className="py-3" style={{ backgroundColor: "#f6f6f6" }}>
                 <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
                   <FormGroup style={{ height: "85px" }}>
                     <Label for="email" className="f6 fw6">
@@ -186,34 +159,6 @@ class Login extends Component {
                       <FormFeedback>Please provide a valid email!</FormFeedback>
                     ) : null}
                   </FormGroup>
-                  <FormGroup style={{ height: "100px" }}>
-                    <Label for="mainPassword" className="f6 fw6">
-                      Password
-                    </Label>
-                    <Input
-                      valid={
-                        this.state.validate.password &&
-                        this.state.validate.password === "valid"
-                      }
-                      invalid={
-                        this.state.validate.password &&
-                        this.state.validate.password === "invalid"
-                      }
-                      value={this.state.data.password}
-                      type="password"
-                      name="mainPassword"
-                      id="mainPassword"
-                      placeholder=""
-                      onChange={this.validatePassword}
-                      onFocus={() => this.focusInput("password")}
-                      onBlur={() => this.setState({ focused: "" })}
-                    />
-                    {this.state.focused !== "password" ? (
-                      <FormFeedback>
-                        Your password will be at least 8 characters!
-                      </FormFeedback>
-                    ) : null}
-                  </FormGroup>
                 </Col>
               </Row>
 
@@ -225,7 +170,7 @@ class Login extends Component {
               >
                 <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
                   {!isValidated && !this.state.error
-                    ? "Provide missing details above to unlock"
+                    ? "Provide email to unlock"
                     : null}
                   {this.state.error ? this.state.error : null}
                 </Col>
@@ -234,10 +179,10 @@ class Login extends Component {
                     className={btnSubmitClass}
                     disabled={!isValidated || this.state.isSubmitting}
                     style={{ minWidth: "130px" }}
-                    onClick={() => this.handleLogin()}
+                    onClick={() => this.handleReset()}
                     type="submit"
                   >
-                    {this.state.isSubmitting ? "Thinking..." : "Login"}
+                    {this.state.isSubmitting ? "Thinking..." : "Submit"}
                     {!isValidated && !this.state.isSubmitting ? (
                       <FaLock size={16} className="ml-1 mb-1" />
                     ) : null}
@@ -250,13 +195,6 @@ class Login extends Component {
                       />
                     ) : null}
                   </Button>
-                  <hr />
-                </Col>
-
-                <Col xs={{ size: 12 }} className="tc">
-                  <Link href="/reset">
-                    <a className="c-primary f6 fw6">Forgot your password?</a>
-                  </Link>
                 </Col>
               </Row>
             </Form>
@@ -267,4 +205,4 @@ class Login extends Component {
   }
 }
 
-export default withoutAuth(Login);
+export default withoutAuth(Reset);

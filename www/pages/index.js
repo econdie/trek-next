@@ -17,6 +17,7 @@ class Index extends Component {
             title: config.motto,
             description: config.tagline,
             noindex: false,
+            canonical: this.props.absoluteURL,
             openGraph: {
               url: this.props.absoluteURL,
               title: config.motto,
