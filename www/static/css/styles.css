@@ -145,6 +145,9 @@ footer {
 .c-white {
   color: #fff;
 }
+.c-grey {
+  color: #f6f6f6;
+}
 .c-black {
   color: black;
 }
@@ -156,6 +159,9 @@ footer {
 }
 .c-crimson-hover:hover {
   color: #f70057 !important;
+}
+.bg-grey {
+  background-color: #f6f6f6 !important;
 }
 .btn-black {
   background-color: black !important;
