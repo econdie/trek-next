@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../components/page";
 import config from "../config.json";
@@ -39,12 +38,8 @@ class Error extends Component {
           >
             contact me
           </a>
-          .
         </p>
         <br />
-        <Link href="/">
-          <a className="c-crimson">Home</a>
-        </Link>
       </div>
     );
   };
