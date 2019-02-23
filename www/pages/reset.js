@@ -36,6 +36,7 @@ class Reset extends Component {
       validate: {},
       focused: "",
       isSubmitting: false,
+      isSubmitted: false,
       error: null
     };
   }
@@ -64,13 +65,12 @@ class Reset extends Component {
       .then(response => {
         this.setState({
           isSubmitting: false,
-          data: { email: "" },
+          isSubmitted: true,
           validate: {
             email: false
           },
           error: null
         });
-        this.focusInput("email");
       })
       .catch(error => {
         const errorMsg =
@@ -80,7 +80,6 @@ class Reset extends Component {
 
         this.setState({
           isSubmitting: false,
-          data: { email: "" },
           validate: {
             email: false
           },
@@ -95,7 +94,7 @@ class Reset extends Component {
   };
 
   render() {
-    const { validate } = this.state;
+    const { validate, isSubmitted } = this.state;
     const isValidated = validate.email && validate.email == "valid";
     let btnSubmitClass = "btn-crimson";
     btnSubmitClass +=
@@ -120,84 +119,96 @@ class Reset extends Component {
           </Col>
         </Row>
         <div style={{ maxWidth: "750px", margin: "0 auto" }}>
-          <Container>
-            <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
-              <Col xs={{ size: 12 }} className="tc">
-                <Link href="/signup">
-                  <a className="c-primary f5 fw6">Don't have an account?</a>
-                </Link>
-              </Col>
-            </Row>
-            <Form className="f4">
-              <Row className="py-3" style={{ backgroundColor: "#f6f6f6" }}>
-                <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
-                  <FormGroup style={{ height: "85px" }}>
-                    <Label for="email" className="f6 fw6">
-                      Email
-                    </Label>
-                    <Input
-                      valid={
-                        this.state.validate.email &&
-                        this.state.validate.email === "valid"
-                      }
-                      invalid={
-                        this.state.validate.email &&
-                        this.state.validate.email === "invalid"
-                      }
-                      value={this.state.data.email}
-                      type="email"
-                      name="email"
-                      id="email"
-                      autoComplete={0}
-                      placeholder=""
-                      onChange={this.validateEmail}
-                      onFocus={() => this.focusInput("email")}
-                      onBlur={() => this.setState({ focused: "" })}
-                    />
-                    {this.state.focused !== "email" ? (
-                      <FormFeedback>Please provide a valid email!</FormFeedback>
-                    ) : null}
-                  </FormGroup>
+          {isSubmitted ? (
+            <Container>
+              <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
+                <Col xs={{ size: 12 }} className="tc c-success f5 fw6">
+                  Further instructions will be sent to {this.state.data.email}.
                 </Col>
               </Row>
-
-              <Row
-                className="py-3 mb-4"
-                style={{
-                  backgroundColor: "#fff"
-                }}
-              >
-                <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
-                  {!isValidated && !this.state.error
-                    ? "Provide email to unlock"
-                    : null}
-                  {this.state.error ? this.state.error : null}
+            </Container>
+          ) : (
+            <Container>
+              <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
+                <Col xs={{ size: 12 }} className="tc">
+                  <Link href="/signup">
+                    <a className="c-primary f5 fw6">Don't have an account?</a>
+                  </Link>
                 </Col>
-                <Col xs={{ size: 12 }} className="tc mt-2">
-                  <Button
-                    className={btnSubmitClass}
-                    disabled={!isValidated || this.state.isSubmitting}
-                    style={{ minWidth: "130px" }}
-                    onClick={() => this.handleReset()}
-                    type="submit"
-                  >
-                    {this.state.isSubmitting ? "Thinking..." : "Submit"}
-                    {!isValidated && !this.state.isSubmitting ? (
-                      <FaLock size={16} className="ml-1 mb-1" />
-                    ) : null}
-                    {this.state.isSubmitting ? (
-                      <Spinner
-                        color="light"
-                        size="sm"
-                        className="ml-1"
-                        style={{ marginBottom: "1px" }}
+              </Row>
+              <Form className="f4">
+                <Row className="py-3" style={{ backgroundColor: "#f6f6f6" }}>
+                  <Col xs={{ size: 12 }} md={{ size: 6, offset: 3 }}>
+                    <FormGroup style={{ height: "85px" }}>
+                      <Label for="email" className="f6 fw6">
+                        Email
+                      </Label>
+                      <Input
+                        valid={
+                          this.state.validate.email &&
+                          this.state.validate.email === "valid"
+                        }
+                        invalid={
+                          this.state.validate.email &&
+                          this.state.validate.email === "invalid"
+                        }
+                        value={this.state.data.email}
+                        type="email"
+                        name="email"
+                        id="email"
+                        autoComplete={0}
+                        placeholder=""
+                        onChange={this.validateEmail}
+                        onFocus={() => this.focusInput("email")}
+                        onBlur={() => this.setState({ focused: "" })}
                       />
-                    ) : null}
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </Container>
+                      {this.state.focused !== "email" ? (
+                        <FormFeedback>
+                          Please provide a valid email!
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Row
+                  className="py-3 mb-4"
+                  style={{
+                    backgroundColor: "#fff"
+                  }}
+                >
+                  <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
+                    {!isValidated && !this.state.error
+                      ? "Provide email to unlock"
+                      : null}
+                    {this.state.error ? this.state.error : null}
+                  </Col>
+                  <Col xs={{ size: 12 }} className="tc mt-2">
+                    <Button
+                      className={btnSubmitClass}
+                      disabled={!isValidated || this.state.isSubmitting}
+                      style={{ minWidth: "130px" }}
+                      onClick={() => this.handleReset()}
+                      type="submit"
+                    >
+                      {this.state.isSubmitting ? "Thinking..." : "Submit"}
+                      {!isValidated && !this.state.isSubmitting ? (
+                        <FaLock size={16} className="ml-1 mb-1" />
+                      ) : null}
+                      {this.state.isSubmitting ? (
+                        <Spinner
+                          color="light"
+                          size="sm"
+                          className="ml-1"
+                          style={{ marginBottom: "1px" }}
+                        />
+                      ) : null}
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Container>
+          )}
         </div>
       </Page>
     );

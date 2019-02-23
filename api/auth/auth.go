@@ -179,9 +179,12 @@ func Reset(email string) model.StandardResponse {
 
 	//no email found - sleep so not obvious in case of no result
 	if !hasResult {
-		time.Sleep(1 * time.Second)
+		response.Status = http.StatusUnprocessableEntity
+		response.Message = "An account with that email does not exist."
+	} else {
+		response.Status = http.StatusOK
+		response.Message = "Please check your email for further instructions."
 	}
-	response.Status = http.StatusOK
-	response.Message = "Please check your email for further instructions."
+
 	return response
 }

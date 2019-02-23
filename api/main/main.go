@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/econdie/trek-next/api/auth"
 	"github.com/econdie/trek-next/api/database"
+	"github.com/econdie/trek-next/api/environment"
 	"github.com/econdie/trek-next/api/model"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
@@ -119,6 +120,9 @@ func main() {
 		user           = checkEnv("CLOUDSQL_USER")
 		password       = checkEnv("CLOUDSQL_PASSWORD")
 	)
+
+	//initialize dev/prod env variables
+	environment.Initialize()
 
 	//intialize database
 	err := database.Initialize(connectionName, user, password)
