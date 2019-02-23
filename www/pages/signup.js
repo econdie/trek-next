@@ -37,6 +37,7 @@ class SignUp extends Component {
       },
       validate: {},
       focused: "",
+      isSubmitted: false,
       isSubmitting: false,
       error: null
     };
@@ -111,6 +112,7 @@ class SignUp extends Component {
           const errorMsg = config.error.unexpected;
           this.setState({
             isSubmitting: false,
+            isSubmitted: true,
             data: { email, password: "", confirmPassword: "" },
             validate: {
               password: false,
@@ -130,6 +132,7 @@ class SignUp extends Component {
 
         this.setState({
           isSubmitting: false,
+          isSubmitted: true,
           data: { email, password: "", confirmPassword: "" },
           validate: {
             password: false,
@@ -294,10 +297,10 @@ class SignUp extends Component {
                 <Col xs={{ size: 12 }} className="tc c-crimson f5 fw2">
                   {!isValidated && !this.state.error ? (
                     "Provide missing details above to unlock"
-                  ) : (
+                  ) : !this.state.isSubmitted ? (
                     <span className="c-success">All set to go!</span>
-                  )}
-                  {this.state.error ? this.state.error : null}
+                  ) : null}
+                  {!isValidated && this.state.error ? this.state.error : null}
                 </Col>
                 <Col xs={{ size: 12 }} className="tc mt-2">
                   <Button

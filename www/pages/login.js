@@ -111,7 +111,6 @@ class Login extends Component {
           },
           error: errorMsg
         });
-        this.focusInput("email");
       });
   };
 
@@ -227,7 +226,7 @@ class Login extends Component {
                   {!isValidated && !this.state.error
                     ? "Provide missing details above to unlock"
                     : null}
-                  {this.state.error ? this.state.error : null}
+                  {!isValidated && this.state.error ? this.state.error : null}
                 </Col>
                 <Col xs={{ size: 12 }} className="tc mt-2">
                   <Button

@@ -44,6 +44,7 @@ func Register(email string, password string) model.StandardResponse {
 			return response
 		}
 
+		//get code and do a confirmation email on signup
 		code, err := generateRandomString(32)
 		if err != nil {
 			response.Status = http.StatusInternalServerError
@@ -51,14 +52,14 @@ func Register(email string, password string) model.StandardResponse {
 			return response
 		}
 
-		q, err := database.Conn.Prepare("INSERT INTO user(email, password, active, code) VALUES(?, ?, ?, ?)")
+		q, err := database.Conn.Prepare("INSERT INTO user(email, password, code) VALUES(?, ?, ?)")
 		if err != nil {
 			response.Status = http.StatusInternalServerError
 			response.Message = "Database Error"
 			return response
 		}
 
-		res, err := q.Exec(email, hash, 0, code)
+		res, err := q.Exec(email, hash, code)
 		if err != nil {
 			response.Status = http.StatusInternalServerError
 			response.Message = "Database Error"
@@ -86,7 +87,6 @@ func Register(email string, password string) model.StandardResponse {
 		//return successful login response with JWT to store in cookie client side
 		response.Status = http.StatusOK
 		response.Payload = make(map[string]interface{})
-		response.Payload["code"] = code
 		response.Payload["token"] = token
 		return response
 	}
@@ -149,7 +149,7 @@ func Login(email string, password string) model.StandardResponse {
 		time.Sleep(1 * time.Second)
 	}
 	response.Status = http.StatusUnprocessableEntity
-	response.Message = "Failed Login"
+	response.Message = "Failed Login - credentials do not match an account in our system."
 	return response
 }
 
@@ -186,5 +186,52 @@ func Reset(email string) model.StandardResponse {
 		response.Message = "Please check your email for further instructions."
 	}
 
+	return response
+}
+
+func ResetConfirmation(code string, email string, password string) model.StandardResponse {
+	var response model.StandardResponse
+
+	rows, err := database.Conn.Query("select id from reset where code = ? and email = ? and used = 0", code, email)
+	if err != nil {
+		log.Fatal(err)
+		response.Status = http.StatusInternalServerError
+		response.Message = "Database Error"
+		return response
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var resetID int
+		err := rows.Scan(&resetID)
+
+		q, err := database.Conn.Prepare("Update reset SET used = ?, code = ? WHERE id = ?")
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Database Error"
+			return response
+		}
+
+		_, err = q.Exec(1, database.Null, resetID)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Database Error"
+			return response
+		}
+
+		err = setPasswordByEmail(email, password)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Database Error"
+			return response
+		}
+
+		response.Status = http.StatusOK
+		response.Message = "Password has been updated successfully."
+		return response
+	}
+
+	response.Status = http.StatusUnprocessableEntity
+	response.Message = "Something went wrong. Your password reset may have expired."
 	return response
 }

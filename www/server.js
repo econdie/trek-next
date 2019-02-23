@@ -9,6 +9,12 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.get("/reset/:code", (req, res) => {
+    return app.render(req, res, "/reset/confirmation", {
+      code: req.params.code
+    });
+  });
+
   server.get("*", (req, res) => {
     return handle(req, res);
   });

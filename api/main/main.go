@@ -85,6 +85,25 @@ func resetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func resetConfirmationHandler(w http.ResponseWriter, r *http.Request) {
+	type requestFormat struct {
+		Code     string `json:"code"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	request := requestFormat{}
+
+	err := json.NewDecoder(r.Body).Decode(&request)
+	if err != nil {
+		var response model.StandardResponse
+		response.Status = http.StatusBadRequest
+		jsonResponse(response, w)
+	} else {
+		jsonResponse(auth.ResetConfirmation(request.Code, request.Email, request.Password), w)
+	}
+}
+
 //we need to check if the database environment variables have been set in the yaml
 func checkEnv(envVar string) string {
 	v := os.Getenv(envVar)
@@ -103,6 +122,7 @@ func main() {
 	//auth routes
 	mux.HandleFunc("/signup", signupHandler)
 	mux.HandleFunc("/login", loginHandler)
+	mux.HandleFunc("/reset/confirmation", resetConfirmationHandler)
 	mux.HandleFunc("/reset", resetHandler)
 
 	//handler with CORS options

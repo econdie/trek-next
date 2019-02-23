@@ -68,3 +68,18 @@ func getResetCode(email string) string {
 
 	return code
 }
+
+func setPasswordByEmail(email string, password string) error {
+	q, err := database.Conn.Prepare("Update user SET password = ? WHERE email = ?")
+	if err != nil {
+		return err
+	}
+
+	hash, err := hashPassword(password)
+	if err != nil {
+		return err
+	}
+
+	_, err = q.Exec(hash, email)
+	return err
+}
