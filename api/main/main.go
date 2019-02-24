@@ -134,6 +134,15 @@ func main() {
 	//init mux router
 	mux := mux.NewRouter()
 
+	//handler with CORS options
+	handler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"POST", "GET", "OPTIONS", "PUT"},
+		AllowedHeaders:   []string{"Accept", "Accept-Language", "Authorization", "Content-Type", "Origin"},
+		AllowCredentials: true,
+		Debug:            true,
+	}).Handler(mux)
+
 	//routes
 	mux.HandleFunc("/", indexHandler)
 	//auth routes
@@ -142,15 +151,6 @@ func main() {
 	mux.HandleFunc("/login", loginHandler)
 	mux.HandleFunc("/reset/confirmation", resetConfirmationHandler)
 	mux.HandleFunc("/reset", resetHandler)
-
-	//handler with CORS options
-	handler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"POST", "GET", "OPTIONS", "PUT"},
-		AllowedHeaders:   []string{"Accept", "Accept-Language", "Authorization", "Content-Type", "Origin"},
-		AllowCredentials: false,
-		Debug:            true,
-	}).Handler(mux)
 
 	//database credentials which are taken from yaml file
 	var (

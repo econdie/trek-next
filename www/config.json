@@ -1,5 +1,5 @@
 {
-  "API_PROD": "https://www.api.treknext.com",
+  "API_PROD": "https://api.treknext.com",
   "API_DEV": "http://localhost:8080",
   "baseUrl": "https://www.treknext.com",
   "brand": "TrekNext",

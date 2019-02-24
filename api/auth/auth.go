@@ -152,6 +152,7 @@ func Login(email string, password string) model.StandardResponse {
 	//validate user credentials
 	rows, err := database.Conn.Query("select id, email, password from user where email = ?", email)
 	if err != nil {
+		log.Fatal(err)
 		response.Status = http.StatusInternalServerError
 		response.Message = "Database Error"
 		return response
@@ -169,6 +170,7 @@ func Login(email string, password string) model.StandardResponse {
 
 		err := rows.Scan(&dbUserID, &dbEmail, &dbPassword)
 		if err != nil {
+			log.Fatal(err)
 			response.Status = http.StatusInternalServerError
 			response.Message = "Database Error"
 			return response

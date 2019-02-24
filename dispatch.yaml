@@ -1,0 +1,6 @@
+dispatch:
+  - url: "treknext.com/*"
+    service: default
+
+  - url: "api.treknext.com/*"
+    service: api
