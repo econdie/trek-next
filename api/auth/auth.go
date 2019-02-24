@@ -84,6 +84,12 @@ func Register(email string, password string) model.StandardResponse {
 		//track a login
 		track.LoginLog(int(userID), token)
 
+		//send a welcome confirmation email
+		err = notify.SendWelcomeEmail(email, code)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		//return successful login response with JWT to store in cookie client side
 		response.Status = http.StatusOK
 		response.Payload = make(map[string]interface{})

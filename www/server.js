@@ -15,6 +15,12 @@ app.prepare().then(() => {
     });
   });
 
+  server.get("/confirm/:code", (req, res) => {
+    return app.render(req, res, "/signup/confirmation", {
+      code: req.params.code
+    });
+  });
+
   server.get("*", (req, res) => {
     return handle(req, res);
   });
