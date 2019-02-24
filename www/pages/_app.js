@@ -39,8 +39,8 @@ export default class MyApp extends App {
     //inject absoluteURL property to every page so we can use in open graph
     pageProps.absoluteURL = config.baseUrl + ctx.asPath;
     //inject api to pages so we know what endpoint to use
-    pageProps.api =
-      process.env.NODE_ENV === "production" ? config.API_PROD : config.API_DEV;
+    // pageProps.api =
+    //   process.env.NODE_ENV === "production" ? config.API_PROD : config.API_DEV;
     return { pageProps };
   }
 

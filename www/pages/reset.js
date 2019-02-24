@@ -20,6 +20,7 @@ import Page from "../components/page";
 import http from "../services/httpService";
 import { withoutAuth } from "../services/authService";
 import config from "../config.json";
+import { api } from "../services/apiService";
 
 class Reset extends Component {
   static async getInitialProps(ctx) {
@@ -59,7 +60,7 @@ class Reset extends Component {
     const endpoint = "/reset";
     this.setState({ isSubmitting: true, error: null });
     http
-      .post(`${this.props.api}${endpoint}`, {
+      .post(`${api}${endpoint}`, {
         email: email
       })
       .then(response => {

@@ -18,10 +18,31 @@ import NextSeo from "next-seo";
 import Page from "../../components/page";
 import http from "../../services/httpService";
 import config from "../../config.json";
+import { api } from "../../services/apiService";
 
 class SignUpConfirmation extends Component {
   static async getInitialProps({ req, query }) {
-    return { code: query.code };
+    const endpoint = "/signup/confirmation";
+    let success = false;
+    let msg = "";
+
+    try {
+      const response = await http.post(`${api}${endpoint}`, {
+        code: query.code
+      });
+
+      success = response.status == 200;
+      msg = response.data.message
+        ? response.data.message
+        : "Thanks for confirming your email, you can now close this page.";
+    } catch (error) {
+      msg =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : config.error.unexpected;
+    }
+
+    return { success, msg };
   }
 
   constructor(props) {
@@ -55,9 +76,15 @@ class SignUpConfirmation extends Component {
         <div style={{ maxWidth: "750px", margin: "0 auto" }}>
           <Container>
             <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
-              <Col xs={{ size: 12 }} className="tc c-success f5 fw6">
-                Thanks for confirming your email, you can now close this page.
-              </Col>
+              {this.props.success ? (
+                <Col xs={{ size: 12 }} className="tc c-success f5 fw6">
+                  {this.props.msg}
+                </Col>
+              ) : (
+                <Col xs={{ size: 12 }} className="tc c-crimson f5 fw6">
+                  {this.props.msg}
+                </Col>
+              )}
             </Row>
           </Container>
         </div>

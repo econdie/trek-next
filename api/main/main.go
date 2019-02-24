@@ -50,6 +50,23 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func signupConfirmationHandler(w http.ResponseWriter, r *http.Request) {
+	type requestFormat struct {
+		Code string `json:"code"`
+	}
+
+	request := requestFormat{}
+
+	err := json.NewDecoder(r.Body).Decode(&request)
+	if err != nil {
+		var response model.StandardResponse
+		response.Status = http.StatusBadRequest
+		jsonResponse(response, w)
+	} else {
+		jsonResponse(auth.RegisterConfirmation(request.Code), w)
+	}
+}
+
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	type requestFormat struct {
 		Email    string `json:"email"`
@@ -120,6 +137,7 @@ func main() {
 	//routes
 	mux.HandleFunc("/", indexHandler)
 	//auth routes
+	mux.HandleFunc("/signup/confirmation", signupConfirmationHandler)
 	mux.HandleFunc("/signup", signupHandler)
 	mux.HandleFunc("/login", loginHandler)
 	mux.HandleFunc("/reset/confirmation", resetConfirmationHandler)

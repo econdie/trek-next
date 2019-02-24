@@ -20,6 +20,7 @@ import Page from "../../components/page";
 import http from "../../services/httpService";
 import { login, withoutAuth } from "../../services/authService";
 import config from "../../config.json";
+import { api } from "../../services/apiService";
 
 class ResetConfirmation extends Component {
   static async getInitialProps({ req, query }) {
@@ -103,7 +104,7 @@ class ResetConfirmation extends Component {
     const endpoint = "/reset/confirmation";
     this.setState({ isSubmitting: true, error: null });
     http
-      .post(`${this.props.api}${endpoint}`, {
+      .post(`${api}${endpoint}`, {
         code: code,
         email: email,
         password: password

@@ -98,6 +98,54 @@ func Register(email string, password string) model.StandardResponse {
 	}
 }
 
+func RegisterConfirmation(code string) model.StandardResponse {
+	var response model.StandardResponse
+
+	rows, err := database.Conn.Query("select id, verified from user where code = ?", code)
+	if err != nil {
+		log.Fatal(err)
+		response.Status = http.StatusInternalServerError
+		response.Message = "Database Error"
+		return response
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var userID int
+		var isVerified int
+		err := rows.Scan(&userID, &isVerified)
+
+		//user has already confirmed their email
+		if isVerified == 1 {
+			response.Status = http.StatusOK
+			response.Message = "Your email has already been confirmed."
+			return response
+		}
+
+		q, err := database.Conn.Prepare("Update user SET verified = ? WHERE id = ?")
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Database Error"
+			return response
+		}
+
+		_, err = q.Exec(1, userID)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Message = "Database Error"
+			return response
+		}
+
+		response.Status = http.StatusOK
+		response.Message = "Email has been confirmed."
+		return response
+	}
+
+	response.Status = http.StatusUnprocessableEntity
+	response.Message = "Something went wrong - invalid code."
+	return response
+}
+
 func Login(email string, password string) model.StandardResponse {
 	var response model.StandardResponse
 

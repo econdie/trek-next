@@ -20,6 +20,7 @@ import Page from "../components/page";
 import http from "../services/httpService";
 import { login, withoutAuth } from "../services/authService";
 import config from "../config.json";
+import { api } from "../services/apiService";
 
 class Login extends Component {
   static async getInitialProps(ctx) {
@@ -74,7 +75,7 @@ class Login extends Component {
     const endpoint = "/login";
     this.setState({ isSubmitting: true, error: null });
     http
-      .post(`${this.props.api}${endpoint}`, {
+      .post(`${api}${endpoint}`, {
         email: email,
         password: password
       })

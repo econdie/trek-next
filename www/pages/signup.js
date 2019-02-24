@@ -20,6 +20,7 @@ import Page from "../components/page";
 import http from "../services/httpService";
 import { login, withoutAuth } from "../services/authService";
 import config from "../config.json";
+import { api } from "../services/apiService";
 
 class SignUp extends Component {
   static async getInitialProps({ req }) {
@@ -101,7 +102,7 @@ class SignUp extends Component {
     const endpoint = "/signup";
     this.setState({ isSubmitting: true, error: null });
     http
-      .post(`${this.props.api}${endpoint}`, {
+      .post(`${api}${endpoint}`, {
         email: email,
         password: password
       })
