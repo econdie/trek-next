@@ -6,7 +6,7 @@ import Page from "../components/page";
 import { withAuth } from "../services/authService";
 import config from "../config.json";
 
-class Profile extends Component {
+class Settings extends Component {
   render() {
     return (
       <Page bg="home" hasToken={this.props.hasToken}>
@@ -25,7 +25,7 @@ class Profile extends Component {
         <Row className="my-4 pb-4">
           <Col xs={{ size: 12 }} className="f0 fw9">
             <div className="tc c-black">
-              Profile... yeah there is nothing here yet!
+              Settings... yeah there is nothing here yet!
             </div>
           </Col>
         </Row>
@@ -34,4 +34,4 @@ class Profile extends Component {
   }
 }
 
-export default withAuth(Profile);
+export default withAuth(Settings);

@@ -37,6 +37,16 @@ footer {
     #3d3d3d
   );
 }
+.gradient-black {
+  background-image: linear-gradient(
+    to right,
+    #000000,
+    #141414,
+    #212121,
+    #2f2f2f,
+    #3d3d3d
+  );
+}
 .navbar {
   background-image: linear-gradient(
     to right,
@@ -298,4 +308,13 @@ footer {
 }
 .ts1 {
   text-shadow: black 1px 1px;
+}
+.avatar-sm {
+  display: block;
+  background-size: cover;
+  background-position: center center;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  display: inline-block;
 }

@@ -13,8 +13,9 @@ import {
   DropdownItem
 } from "reactstrap";
 import Link from "next/link";
-import { FaGrav } from "react-icons/fa";
+import { FaRegSun, FaRegHandPeace, FaUserCircle, FaGrav } from "react-icons/fa";
 import { logout } from "../../services/authService";
+import Avatar from "../avatar";
 import config from "../../config.json";
 
 class Navigation extends Component {
@@ -44,13 +45,47 @@ class Navigation extends Component {
     if (hasToken) {
       return (
         <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Link href="">
-              <a className="f3 fw6" onClick={e => this.handleLogout(e)}>
-                Logout
-              </a>
-            </Link>
-          </NavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle
+              className="px-0 py-0"
+              caret
+              style={{ border: "1px solid white" }}
+            >
+              <div style={{ display: "flex", height: "15px" }} className="px-2">
+                <Avatar size="sm" />
+                <span className="ml-2">tropicalMango34</span>
+              </div>
+            </DropdownToggle>
+            <DropdownMenu right className="gradient-black">
+              <DropdownItem className="gradient-black">
+                <NavItem>
+                  <Link href="/profile">
+                    <a className="f3 fw6">
+                      <FaUserCircle size={16} className="mr-3 mb-1" /> Profile
+                    </a>
+                  </Link>
+                </NavItem>
+              </DropdownItem>
+              <DropdownItem className="gradient-black">
+                <NavItem>
+                  <Link href="/settings">
+                    <a className="f3 fw6">
+                      <FaRegSun size={16} className="mr-3 mb-1" /> Settings
+                    </a>
+                  </Link>
+                </NavItem>
+              </DropdownItem>
+              <DropdownItem className="gradient-black">
+                <NavItem>
+                  <Link href="">
+                    <a className="f3 fw6" onClick={e => this.handleLogout(e)}>
+                      <FaRegHandPeace size={16} className="mr-3 mb-1" /> Logout
+                    </a>
+                  </Link>
+                </NavItem>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
         </Nav>
       );
     } else {
@@ -74,14 +109,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Navbar
-        id="navbar-main"
-        color="dark"
-        dark
-        expand="sm"
-        fixed="top"
-        className="px-4"
-      >
+      <Navbar id="navbar-main" dark expand="sm" fixed="top" className="px-4">
         <Link href="/">
           <a
             className="navbar-brand pull-left"
