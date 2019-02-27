@@ -86,8 +86,9 @@ class Navigation extends Component {
           <a
             className="navbar-brand pull-left"
             title="NextTrek Home"
-            className="f3 fw5"
+            className="f4 fw6"
           >
+            TrekNext
             <FaGrav size={32} className="mx-2" />
           </a>
         </Link>

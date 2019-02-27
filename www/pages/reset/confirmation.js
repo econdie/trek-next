@@ -9,11 +9,14 @@ import {
   FormGroup,
   Label,
   Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   FormText,
   FormFeedback,
   Spinner
 } from "reactstrap";
-import { FaLock } from "react-icons/fa";
+import { FaEnvelope, FaKey, FaLock, FaCheckDouble } from "react-icons/fa";
 import Link from "next/link";
 import NextSeo from "next-seo";
 import Page from "../../components/page";
@@ -110,15 +113,34 @@ class ResetConfirmation extends Component {
         password: password
       })
       .then(response => {
-        this.setState({
-          isSubmitting: false,
-          isSubmitted: true,
-          validate: {
-            email: false
-          },
-          error: null,
-          success: true
-        });
+        if (response.status == 200) {
+          this.setState({
+            isSubmitting: false,
+            isSubmitted: true,
+            validate: {
+              email: false
+            },
+            error: null,
+            success: true
+          });
+        } else {
+          const errorMsg = response.message
+            ? response.message
+            : config.error.unexpected;
+
+          this.setState({
+            isSubmitting: false,
+            isSubmitted: true,
+            data: { email, password: "", confirmPassword: "" },
+            validate: {
+              password: false,
+              confirmPassword: false,
+              email: "invalid"
+            },
+            error: errorMsg
+          });
+          this.focusInput("email");
+        }
       })
       .catch(error => {
         const errorMsg =
@@ -178,13 +200,24 @@ class ResetConfirmation extends Component {
           {this.state.isSubmitted ? (
             <Container>
               <Row className="py-3 mt-3" style={{ backgroundColor: "#fff" }}>
-                <Col xs={{ size: 12 }} className="tc c-success f5 fw6">
-                  Awesome! You can now{" "}
-                  <Link href="/login">
-                    <a>login</a>
-                  </Link>{" "}
-                  with your new password.
-                </Col>
+                {this.state.error ? (
+                  <Col xs={{ size: 12 }} className="tc c-crimson f5 fw6">
+                    {this.state.error} <br />
+                    Try requesting{" "}
+                    <Link href="/reset">
+                      <a>a new code</a>
+                    </Link>
+                    .
+                  </Col>
+                ) : (
+                  <Col xs={{ size: 12 }} className="tc c-success f5 fw6">
+                    Awesome! You can now{" "}
+                    <Link href="/login">
+                      <a>login</a>
+                    </Link>{" "}
+                    with your new password.
+                  </Col>
+                )}
               </Row>
             </Container>
           ) : (
@@ -199,58 +232,72 @@ class ResetConfirmation extends Component {
                       <Label for="email" className="f6 fw6">
                         Confirm Email
                       </Label>
-                      <Input
-                        valid={
-                          this.state.validate.email &&
-                          this.state.validate.email === "valid"
-                        }
-                        invalid={
-                          this.state.validate.email &&
-                          this.state.validate.email === "invalid"
-                        }
-                        value={this.state.data.email}
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete={0}
-                        placeholder=""
-                        onChange={this.validateEmail}
-                        onFocus={() => this.focusInput("email")}
-                        onBlur={() => this.setState({ focused: "" })}
-                      />
-                      {this.state.focused !== "email" ? (
-                        <FormFeedback>
-                          Please provide a valid email!
-                        </FormFeedback>
-                      ) : null}
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <FaEnvelope size={16} />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          valid={
+                            this.state.validate.email &&
+                            this.state.validate.email === "valid"
+                          }
+                          invalid={
+                            this.state.validate.email &&
+                            this.state.validate.email === "invalid"
+                          }
+                          value={this.state.data.email}
+                          type="email"
+                          name="email"
+                          id="email"
+                          autoComplete={0}
+                          placeholder=""
+                          onChange={this.validateEmail}
+                          onFocus={() => this.focusInput("email")}
+                          onBlur={() => this.setState({ focused: "" })}
+                        />
+                        {this.state.focused !== "email" ? (
+                          <FormFeedback>
+                            Please provide a valid email!
+                          </FormFeedback>
+                        ) : null}
+                      </InputGroup>
                     </FormGroup>
                     <FormGroup style={{ height: "85px" }}>
                       <Label for="mainPassword" className="f6 fw6">
                         New Password
                       </Label>
-                      <Input
-                        valid={
-                          this.state.validate.password &&
-                          this.state.validate.password === "valid"
-                        }
-                        invalid={
-                          this.state.validate.password &&
-                          this.state.validate.password === "invalid"
-                        }
-                        value={this.state.data.password}
-                        type="password"
-                        name="mainPassword"
-                        id="mainPassword"
-                        placeholder=""
-                        onChange={this.validatePassword}
-                        onFocus={() => this.focusInput("password")}
-                        onBlur={() => this.setState({ focused: "" })}
-                      />
-                      {this.state.focused !== "password" ? (
-                        <FormFeedback>
-                          Please make your password at least 8 characters!
-                        </FormFeedback>
-                      ) : null}
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <FaKey size={16} />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          valid={
+                            this.state.validate.password &&
+                            this.state.validate.password === "valid"
+                          }
+                          invalid={
+                            this.state.validate.password &&
+                            this.state.validate.password === "invalid"
+                          }
+                          value={this.state.data.password}
+                          type="password"
+                          name="mainPassword"
+                          id="mainPassword"
+                          placeholder=""
+                          onChange={this.validatePassword}
+                          onFocus={() => this.focusInput("password")}
+                          onBlur={() => this.setState({ focused: "" })}
+                        />
+                        {this.state.focused !== "password" ? (
+                          <FormFeedback>
+                            Please make your password at least 8 characters!
+                          </FormFeedback>
+                        ) : null}
+                      </InputGroup>
                       {this.state.validate.password == "invalid" &&
                       this.state.focused !== "password" ? null : (
                         <span className="f6 fw2">
@@ -262,27 +309,34 @@ class ResetConfirmation extends Component {
                       <Label for="confirmPassword" className="f6 fw6">
                         Confirm New Password
                       </Label>
-                      <Input
-                        valid={
-                          this.state.validate.confirmPassword &&
-                          this.state.validate.confirmPassword === "valid"
-                        }
-                        invalid={
-                          this.state.validate.confirmPassword &&
-                          this.state.validate.confirmPassword === "invalid"
-                        }
-                        value={this.state.data.confirmPassword}
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder=""
-                        onChange={this.validateConfirmPassword}
-                        onFocus={() => this.focusInput("confirmPassword")}
-                        onBlur={() => this.setState({ focused: "" })}
-                      />
-                      {this.state.focused !== "confirmPassword" ? (
-                        <FormFeedback>Passwords do not match!</FormFeedback>
-                      ) : null}
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <FaCheckDouble size={16} />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          valid={
+                            this.state.validate.confirmPassword &&
+                            this.state.validate.confirmPassword === "valid"
+                          }
+                          invalid={
+                            this.state.validate.confirmPassword &&
+                            this.state.validate.confirmPassword === "invalid"
+                          }
+                          value={this.state.data.confirmPassword}
+                          type="password"
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          placeholder=""
+                          onChange={this.validateConfirmPassword}
+                          onFocus={() => this.focusInput("confirmPassword")}
+                          onBlur={() => this.setState({ focused: "" })}
+                        />
+                        {this.state.focused !== "confirmPassword" ? (
+                          <FormFeedback>Passwords do not match!</FormFeedback>
+                        ) : null}
+                      </InputGroup>
                       {this.state.validate.confirmPassword == "invalid" &&
                       this.state.focused !== "confirmPassword" ? null : (
                         <span className="f6 fw2">
