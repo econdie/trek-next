@@ -54,7 +54,12 @@ class Index extends Component {
           <Col xs={{ size: 12 }} className="tc">
             <Link href="/signup">
               <a>
-                <Button className="btn-black btn-pulse">Get Started</Button>
+                <Button
+                  className="btn-black btn-pulse"
+                  aria-label="Get Started"
+                >
+                  Get Started
+                </Button>
               </a>
             </Link>
           </Col>

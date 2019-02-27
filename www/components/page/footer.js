@@ -17,6 +17,7 @@ class Footer extends Component {
               <a
                 href="https://www.erikcondie.com"
                 alt="Erik Condie's website"
+                rel="noopener"
                 target="_blank"
               >
                 Erik Condie
