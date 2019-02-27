@@ -120,7 +120,7 @@ class Navigation extends Component {
             <FaGrav size={32} className="mx-2" />
           </a>
         </Link>
-        <NavbarToggler onClick={this.toggle} />
+        <NavbarToggler onClick={this.toggle} aria-label="Navigation Toggler" />
         <Collapse isOpen={this.state.isOpen} navbar>
           {this.getNavs()}
         </Collapse>
