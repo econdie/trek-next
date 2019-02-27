@@ -1,12 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { useTransition, animated, config } from "react-spring";
+import {
+  FaPeopleCarry,
+  FaHiking,
+  FaPlaneDeparture,
+  FaMountain,
+  FaGlobeAmericas,
+  FaLuggageCart
+} from "react-icons/fa";
 
 function KeywordsAnimation() {
   const keywords = [
-    { id: 0, text: "Explorers" },
-    { id: 1, text: "Wanderers" },
-    { id: 2, text: "Travellers" },
-    { id: 3, text: "Humans" }
+    {
+      id: 0,
+      text: "Explorers",
+      fa: <FaMountain size={24} className="c-white mr-1 mb-1" />
+    },
+    {
+      id: 1,
+      text: "Wanderers",
+      fa: <FaHiking size={24} className="c-white mr-1 mb-1" />
+    },
+    {
+      id: 2,
+      text: "Travellers",
+      fa: <FaPlaneDeparture size={24} className="c-white mr-1 mb-1" />
+    },
+    {
+      id: 3,
+      text: "Nomads",
+      fa: <FaLuggageCart size={24} className="c-white mr-1 mb-1" />
+    },
+    {
+      id: 4,
+      text: "Humans",
+      fa: <FaPeopleCarry size={24} className="c-white mr-1 mb-1" />
+    }
   ];
   const [index, set] = useState(0);
   const transitions = useTransition(keywords[index], keyword => keyword.id, {
@@ -19,7 +48,7 @@ function KeywordsAnimation() {
   });
 
   useEffect(() => {
-    let wordInterval = setInterval(() => set(state => (state + 1) % 4), 3000);
+    let wordInterval = setInterval(() => set(state => (state + 1) % 5), 3000);
     return () => {
       clearInterval(wordInterval);
     };
@@ -31,7 +60,7 @@ function KeywordsAnimation() {
       className="tc"
       style={{ ...props, position: "absolute", right: "50%" }}
     >
-      {item.text}
+      {item.fa} {item.text}
     </animated.div>
   ));
 }
