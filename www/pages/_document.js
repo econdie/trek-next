@@ -1,5 +1,4 @@
-import React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 export default class TrekNextDocument extends Document {
   static async getInitialProps(ctx) {
@@ -9,7 +8,7 @@ export default class TrekNextDocument extends Document {
 
   render() {
     return (
-      <html lang="en">
+      <Html>
         <Head>
           <meta
             name="viewport"
@@ -47,7 +46,7 @@ export default class TrekNextDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
