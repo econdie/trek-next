@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar Snapshot matches 1`] = `
+<div
+  className="avatar-sm"
+  style={
+    Object {
+      "backgroundImage": "url(https://storage.googleapis.com/trek-next.appspot.com/public/avatar-default-sm.png)",
+    }
+  }
+/>
+`;
