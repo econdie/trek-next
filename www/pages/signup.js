@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import { FaEnvelope, FaKey, FaLock, FaCheckDouble } from "react-icons/fa";
 import Link from "next/link";
-import NextSeo from "next-seo";
+import { NextSeo } from "next-seo";
 import Page from "../components/page";
 import http from "../services/httpService";
 import { login, withoutAuth } from "../services/authService";

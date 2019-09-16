@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NextSeo from "next-seo";
+import { NextSeo } from "next-seo";
 import Page from "../components/page";
 import config from "../config.json";
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import { Button, Container, Row, Col } from "reactstrap";
-import NextSeo from "next-seo";
+import { NextSeo } from "next-seo";
 import Page from "../components/page";
 import { withAuth } from "../services/authService";
 import config from "../config.json";

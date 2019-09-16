@@ -1,7 +1,7 @@
-import App, { Container } from "next/app";
-import Router from "next/router";
+import App from "next/app";
+import { Router } from "next/router";
 import React from "react";
-import NextSeo from "next-seo";
+import { DefaultSeo } from "next-seo";
 import NProgress from "nprogress";
 import nextCookie from "next-cookies";
 import config from "../config.json";
@@ -47,10 +47,10 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Container>
-        <NextSeo config={SEO} />
+      <React.Fragment>
+        <DefaultSeo config={SEO} />
         <Component {...pageProps} />
-      </Container>
+      </React.Fragment>
     );
   }
 }

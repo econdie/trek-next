@@ -14,7 +14,7 @@ import {
   Spinner
 } from "reactstrap";
 import Link from "next/link";
-import NextSeo from "next-seo";
+import { NextSeo } from "next-seo";
 import Page from "../../components/page";
 import http from "../../services/httpService";
 import config from "../../config.json";
