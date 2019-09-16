@@ -131,15 +131,13 @@ class Login extends Component {
     return (
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={"Login"}
+          description={"Login to TrekNext"}
+          noindex={true}
+          openGraph={{
+            url: this.props.absoluteURL,
             title: "Login",
-            description: "Login to TrekNext",
-            noindex: true,
-            openGraph: {
-              url: this.props.absoluteURL,
-              title: "Login",
-              description: "Login to TrekNext"
-            }
+            description: "Login to TrekNext"
           }}
         />
         <Row>

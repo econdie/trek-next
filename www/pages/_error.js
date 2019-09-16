@@ -48,15 +48,13 @@ class Error extends Component {
     return (
       <Page bg="auth">
         <NextSeo
-          config={{
+          title={"Error"}
+          description={"TrekNext error occurred"}
+          noindex={true}
+          openGraph={{
+            url: this.props.absoluteURL,
             title: "Error",
-            description: "TrekNext error occurred",
-            noindex: true,
-            openGraph: {
-              url: this.props.absoluteURL,
-              title: "Error",
-              description: "TrekNext error occurred"
-            }
+            description: "TrekNext error occurred"
           }}
         />
         {this.renderError()}

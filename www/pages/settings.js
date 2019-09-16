@@ -11,15 +11,13 @@ class Settings extends Component {
     return (
       <Page bg="home" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={config.motto}
+          description={config.tagline}
+          noindex={false}
+          openGraph={{
+            url: this.props.absoluteURL,
             title: config.motto,
-            description: config.tagline,
-            noindex: false,
-            openGraph: {
-              url: this.props.absoluteURL,
-              title: config.motto,
-              description: config.tagline
-            }
+            description: config.tagline
           }}
         />
         <Row className="my-4 pb-4">

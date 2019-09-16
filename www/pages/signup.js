@@ -163,15 +163,13 @@ class SignUp extends Component {
     return (
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={"Sign Up"}
+          description={"Create your free TrekNext account"}
+          noindex={true}
+          openGraph={{
+            url: this.props.absoluteURL,
             title: "Sign Up",
-            description: "Create your free TrekNext account",
-            noindex: true,
-            openGraph: {
-              url: this.props.absoluteURL,
-              title: "Sign Up",
-              description: "Create your free TrekNext account"
-            }
+            description: "Create your free TrekNext account"
           }}
         />
         <Row>

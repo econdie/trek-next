@@ -178,16 +178,14 @@ class ResetConfirmation extends Component {
     return (
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={"Reset"}
+          description={"Reset TrekNext password"}
+          noindex={true}
+          canonical={"https://www.treknext.com/reset"}
+          openGraph={{
+            url: "https://www.treknext.com/reset",
             title: "Reset",
-            description: "Reset TrekNext password",
-            noindex: true,
-            canonical: "https://www.treknext.com/reset",
-            openGraph: {
-              url: "https://www.treknext.com/reset",
-              title: "Reset",
-              description: "Reset TrekNext password"
-            }
+            description: "Reset TrekNext password"
           }}
         />
         <Row className="mb-3">

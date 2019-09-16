@@ -55,16 +55,14 @@ class SignUpConfirmation extends Component {
     return (
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={"Email Confirmation"}
+          description={"Confirm TrekNext email"}
+          noindex={true}
+          canonical={"https://www.treknext.com/signup"}
+          openGraph={{
+            url: "https://www.treknext.com/signup",
             title: "Email Confirmation",
-            description: "Confirm TrekNext email",
-            noindex: true,
-            canonical: "https://www.treknext.com/signup",
-            openGraph: {
-              url: "https://www.treknext.com/signup",
-              title: "Email Confirmation",
-              description: "Confirm TrekNext email"
-            }
+            description: "Confirm TrekNext email"
           }}
         />
         <Row className="mb-3">

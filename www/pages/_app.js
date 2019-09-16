@@ -48,7 +48,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <React.Fragment>
-        <DefaultSeo config={SEO} />
+        <DefaultSeo {...SEO} />
         <Component {...pageProps} />
       </React.Fragment>
     );

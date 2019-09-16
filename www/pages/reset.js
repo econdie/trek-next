@@ -106,15 +106,13 @@ class Reset extends Component {
     return (
       <Page bg="auth" hasToken={this.props.hasToken}>
         <NextSeo
-          config={{
+          title={"Reset"}
+          description={"Reset TrekNext password"}
+          noindex={true}
+          openGraph={{
+            url: this.props.absoluteURL,
             title: "Reset",
-            description: "Reset TrekNext password",
-            noindex: true,
-            openGraph: {
-              url: this.props.absoluteURL,
-              title: "Reset",
-              description: "Reset TrekNext password"
-            }
+            description: "Reset TrekNext password"
           }}
         />
         <Row>
