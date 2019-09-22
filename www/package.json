@@ -30,6 +30,7 @@
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "d3-scale": "^3.1.0",
     "express": "^4.16.4",
     "js-cookie": "^2.2.0",
     "next": "^9.0.5",
@@ -39,8 +40,13 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-icons": "^3.4.0",
+    "react-redux": "^7.1.1",
+    "react-simple-maps": "^0.12.1",
     "react-spring": "^8.0.7",
-    "reactstrap": "^8.0.1"
+    "reactstrap": "^8.0.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

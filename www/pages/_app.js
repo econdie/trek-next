@@ -1,6 +1,8 @@
 import App from "next/app";
 import { Router } from "next/router";
 import React from "react";
+import withReduxStore from "../redux/lib/injectStore";
+import { Provider } from "react-redux";
 import { DefaultSeo } from "next-seo";
 import NProgress from "nprogress";
 import nextCookie from "next-cookies";
@@ -26,7 +28,7 @@ Router.events.on("routeChangeComplete", url => {
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default class MyApp extends App {
+class TrekNextApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
     if (Component.getInitialProps) {
@@ -45,12 +47,16 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, reduxStore } = this.props;
     return (
       <React.Fragment>
         <DefaultSeo {...SEO} />
-        <Component {...pageProps} />
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
       </React.Fragment>
     );
   }
 }
+
+export default withReduxStore(TrekNextApp);
