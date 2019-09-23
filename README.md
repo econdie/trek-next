@@ -12,4 +12,4 @@ front end - next.js / react / redux / next-seo / react-spring / jest / enzyme
 
 back end - golang / jwt / mysql
 
-infrastructure - google cloud platform (app engine / cloud sql / cloud storage)
+infrastructure - google cloud platform (app engine / cloud build / cloud sql / cloud storage)
