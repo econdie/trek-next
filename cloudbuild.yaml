@@ -6,7 +6,7 @@ steps:
     args: ["run", "test"]
     dir: "www"
   - name: "gcr.io/cloud-builders/go"
-    args: ["build"]
+    args: ["get"]
     env: ["GOPATH=go"]
     dir: "api/main"
   - name: "gcr.io/cloud-builders/go"
