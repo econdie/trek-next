@@ -9,7 +9,7 @@ steps:
     env:
       - GO111MODULE=on
     args: ["go", "get"]
-    dir: "api"
+    dir: "api/main"
     volumes:
       - name: go-modules
         path: /go
