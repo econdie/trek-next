@@ -18,9 +18,9 @@ gcloud config set project MY_PROJECT
 
 # API Setup
 
-To install and build API go dependencies, cd into /api/main and 'go build'
+To install and build API go dependencies, cd into /api/ and 'go build ./...'
 
-To prune any no longer needed dependencies, cd into /api/main and 'go mod tidy'
+To prune any no longer needed dependencies, cd into /api/ and 'go mod tidy'
 
 To run api dev server locally, cd into /api/ and 'dev_appserver.py app.yaml'
 

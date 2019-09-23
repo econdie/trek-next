@@ -11,11 +11,6 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
-github.com/econdie/trek-next v0.0.0-20190923163730-9744123b6e15 h1:74D0PT/9a7jj4zbWcP6PP5LB4oUSJL856FkA74GZZW0=
-github.com/econdie/trek-next v0.0.0-20190923171246-22aa1ea47359 h1:Y3ilw19cWrQm7wAHmBVmkNOYLZ/Mni1BMe3v74qN3w4=
-github.com/econdie/trek-next v0.0.0-20190923172707-4b76095ef70e h1:KtG0Xn7gxKMJrEoVzOt6UDF1Lo4zaLsAzpp2zQG2YJg=
-github.com/econdie/trek-next v0.0.0-20190923174013-ef0422d54110 h1:k8TGFjrOe6/GuLLcoycP6T5O0wMgeNoGh5dm7s1h+2M=
-github.com/econdie/trek-next v0.0.0-20190923175443-710701e3b194 h1:VXqo24Qp54k0rEnisErZMssReTUH553YLgykNh49sjI=
 github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51 h1:0JZ+dUmQeA8IIVUMzysrX4/AKuQwWhV2dYQuPZdvdSQ=
 github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51/go.mod h1:Yg+htXGokKKdzcwhuNDwVvN+uBxDGXJ7G/VN1d8fa64=
 github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 h1:JWuenKqqX8nojtoVVWjGfOF9635RETekkoH6Cc9SX0A=
