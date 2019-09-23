@@ -1,0 +1,7 @@
+steps:
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["install"]
+    dir: "www"
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "test"]
+    dir: "www"
