@@ -8,8 +8,8 @@ steps:
   - name: mirror.gcr.io/library/golang
     env:
       - GO111MODULE=on
-    args: ["go", "get"]
-    dir: "api/main"
+    args: ["go", "build", "./..."]
+    dir: "api"
     volumes:
       - name: go-modules
         path: /go
