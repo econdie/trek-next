@@ -5,3 +5,9 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "test"]
     dir: "www"
+  - name: "gcr.io/cloud-builders/go"
+    args: ["build"]
+    dir: "api/main"
+  - name: "gcr.io/cloud-builders/go"
+    args: ["test", "./..."]
+    dir: "api"

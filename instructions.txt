@@ -24,6 +24,8 @@ To prune any no longer needed dependencies, cd into /api/main and 'go mod tidy'
 
 To run api dev server locally, cd into /api/ and 'dev_appserver.py app.yaml'
 
+To run api tests, cd into /api/ and 'go test ./...'
+
 To deploy api updates live, cd into /api/ and 'gcloud app deploy app.yaml --version 2'
 
 To run Go code formatter, cd into /api/ and 'gofmt -w ./'
@@ -33,5 +35,7 @@ To run Go code formatter, cd into /api/ and 'gofmt -w ./'
 To install client next.js dependencies, cd into /www/ and 'npm install'
 
 To run client dev server locally, cd into /www/ and 'npm run dev'
+
+To run client tests, cd into /www/ and 'npm run test'
 
 To deploy client updates live, cd into /www/ and 'npm run deploy'
