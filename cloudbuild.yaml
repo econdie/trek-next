@@ -7,8 +7,9 @@ steps:
     dir: "www"
   - name: "gcr.io/cloud-builders/go"
     args: ["build"]
-    env: ["PROJECT_ROOT=api"]
-    dir: "main"
+    env: ["GOPATH=go"]
+    dir: "api/main"
   - name: "gcr.io/cloud-builders/go"
     args: ["test", "./..."]
-    env: ["PROJECT_ROOT=api"]
+    env: ["GOPATH=go"]
+    dir: "api"
