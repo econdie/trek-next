@@ -5,7 +5,7 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "test"]
     dir: "www"
-  - name: mirror.gcr.io/golang
+  - name: mirror.gcr.io/library/golang
     env:
       - GO111MODULE=on
     args: ["go", "get"]
@@ -13,7 +13,7 @@ steps:
     volumes:
       - name: go-modules
         path: /go
-  - name: golang
+  - name: mirror.gcr.io/library/golang
     env:
       - GO111MODULE=on
     args: ["go", "test", "./..."]
