@@ -1,5 +1,7 @@
 module github.com/econdie/trek-next/api
 
+replace git.apache.org/thrift.git => github.com/apache/thrift v0.12.0
+
 require (
 	github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20190129172621-c8b1d7a94ddf
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible

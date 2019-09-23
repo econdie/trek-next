@@ -1,6 +1,6 @@
-runtime: go111
+runtime: go112
 service: api
-main: main
+main: ./main
 includes:
   - env_variables.yaml
 handlers:
