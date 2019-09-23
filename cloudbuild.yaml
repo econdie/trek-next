@@ -5,11 +5,19 @@ steps:
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "test"]
     dir: "www"
-  - name: "gcr.io/cloud-builders/go"
-    args: ["get"]
-    env: ["GOPATH=go"]
-    dir: "api/main"
-  - name: "gcr.io/cloud-builders/go"
-    args: ["test", "./..."]
-    env: ["GOPATH=go"]
+  - name: mirror.gcr.io/golang
+    env:
+      - GO111MODULE=on
+    args: ["go", "get"]
     dir: "api"
+    volumes:
+      - name: go-modules
+        path: /go
+  - name: golang
+    env:
+      - GO111MODULE=on
+    args: ["go", "test", "./..."]
+    dir: "api"
+    volumes:
+      - name: go-modules
+        path: /go
