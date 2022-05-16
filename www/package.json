@@ -35,7 +35,7 @@
     "js-cookie": "^2.2.0",
     "js-yaml": ">=3.13.1",
     "lodash": ">=4.17.13",
-    "next": "^9.0.5",
+    "next": "^12.1.0",
     "next-cookies": "^1.1.2",
     "next-seo": "^2.1.0",
     "nprogress": "^0.2.0",
